@@ -1,0 +1,5088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Makes the site scale properly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>meow (˶˃ ᵕ ˂˶)</title>
+  <!-- Baby pink heart browser tab icon -->
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="assets/asset_001.svg"
+  />
+
+
+  <!-- Font: Nunito for everything -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+/* Pixel baby-pink heart cursor */
+    html,
+    body,
+    body * {
+      cursor: url("assets/asset_002.svg") 12 12, auto !important;
+    }
+
+    a,
+    button,
+    [role="button"],
+    .tab-button,
+    .daily-link {
+      cursor: url("assets/asset_002.svg") 12 12, pointer !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      text-align: center;
+      color: white;
+      background: #ffc5df;
+    }
+
+    .site-card,
+    .site-card * {
+      color: white !important;
+    }
+
+
+    .daily-title,
+    .section-title {
+      color: #ffc5df !important;
+    }
+
+
+    .section-title {
+      font-size: 28px !important;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+      position: relative;
+      overflow-x: hidden;
+      background: #ffc5df;
+      z-index: 0;
+      isolation: isolate;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* iPhone-safe full-page background. Avoid background-attachment: fixed because iOS Safari can glitch/flicker it. */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      z-index: 0;
+      pointer-events: none;
+      transition: background 0.35s ease, background-image 0.35s ease, filter 0.35s ease;
+      background-image: url('assets/asset_003.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      filter: brightness(0.54) contrast(1.02);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: none;
+      display: none;
+    }
+
+    .site-card {
+      --section-gap: 2.25rem;
+      position: relative;
+      z-index: 2;
+      width: min(92vw, 850px);
+      max-width: 850px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--section-gap);
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    /* Separate glassy/blurred sections */
+    .nav-tabs-section,
+    .site-header,
+    .section {
+      background: rgba(255, 255, 255, 0.22);
+border: 1px solid rgba(255, 255, 255, 0.30);
+      border-radius: 24px;
+      padding: 24px 22px;
+      box-shadow: 0 18px 45px rgba(68, 52, 92, 0.14);
+    }
+
+    main {
+      gap: var(--section-gap);
+    }
+
+    .nav-tabs-section,
+    .site-header,
+    main,
+    .section,
+    .site-footer,
+    .shelf-wrap,
+    .bookshelf,
+    .spotify-frame {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #bookshelf-section .justin-bookshelf-card {
+      width: min(100%, 560px);
+      max-width: 100%;
+      margin: 22px auto 0;
+      padding: 28px 28px 24px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      color: #f7f7f7;
+      box-sizing: border-box;
+    }
+
+    #bookshelf-section .justin-bookshelf-title {
+      margin: 0 0 24px;
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 26px;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #f7f7f7 !important;
+      letter-spacing: -0.02em;
+    }
+
+    #bookshelf-section .justin-books {
+      min-height: 206px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 6px;
+      position: relative;
+    }
+
+    #bookshelf-section .justin-book-preview-group {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    #bookshelf-section .justin-book {
+      width: 52px;
+      height: 200px;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f8f8f8;
+      box-shadow:
+        inset -8px 0 rgba(0, 0, 0, 0.16),
+        inset 5px 0 rgba(255, 255, 255, 0.07),
+        0 8px 18px rgba(0, 0, 0, 0.2);
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    #bookshelf-section .justin-book::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 197, 223, 0.98);
+      box-shadow: 0 0 10px rgba(255, 197, 223, 0.35);
+      opacity: 0;
+      transform: scaleX(0.85);
+      transition: opacity 180ms ease, transform 180ms ease;
+      pointer-events: none;
+    }
+
+    #bookshelf-section .justin-book:hover,
+    #bookshelf-section .justin-book:focus-visible {
+      transform: translateY(-8px);
+      filter: brightness(1.12);
+      outline: none;
+    }
+
+    #bookshelf-section .justin-book:hover::after,
+    #bookshelf-section .justin-book:focus-visible::after,
+    #bookshelf-section .justin-book-preview-group:hover .justin-book::after,
+    #bookshelf-section .justin-book-preview-group:focus-within .justin-book::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+
+    #bookshelf-section .justin-preview {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 16px);
+      width: 190px;
+      max-width: 48vw;
+      border-radius: 12px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.30);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 10px) scale(0.98);
+      transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+      background: rgba(9, 9, 12, 0.92);
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      text-align: left !important;
+    }
+
+    #bookshelf-section .justin-preview-cover {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: none;
+      border-radius: 0;
+    }
+
+    #bookshelf-section .justin-preview-meta {
+      padding: 10px 12px 12px;
+      background: rgba(0, 0, 0, 0.72);
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      text-align: left !important;
+    }
+
+    #bookshelf-section .justin-preview-title {
+      color: #ffffff !important;
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left !important;
+    }
+
+    #bookshelf-section .justin-preview-author {
+      margin-top: 4px;
+      color: #ffc5df !important;
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      font-size: 13px;
+      line-height: 1.1;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left !important;
+    }
+
+    #bookshelf-section .justin-book-preview-group:hover .justin-preview,
+    #bookshelf-section .justin-book-preview-group:focus-within .justin-preview {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    #bookshelf-section .justin-book span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      max-height: 170px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+    }
+
+    #bookshelf-section .justin-book-finish,
+    #bookshelf-section .justin-book-karamazov {
+      background: #000000;
+    }
+
+    #bookshelf-section .justin-book-karamazov { height: 210px; }
+
+    #bookshelf-section .justin-shelf-lines {
+      width: min(100%, 495px);
+      margin: 10px auto 0;
+    }
+
+    #bookshelf-section .justin-shelf-line {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(38, 38, 38, 0.98), rgba(13, 13, 13, 0.98));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 3px 8px rgba(0, 0, 0, 0.55);
+    }
+
+    #bookshelf-section .justin-shelf-line + .justin-shelf-line {
+      height: 5px;
+      margin-top: 4px;
+      opacity: 0.75;
+    }
+
+
+    .spotify-frame {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .site-title,
+    .section-title {
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    .site-subtitle,
+    .section-hint,
+    .section-body,
+    .section-body *,
+    .site-footer p {
+      font-family: 'Roboto Mono', "Courier New", Courier, monospace !important;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* body text inside the new middle section */
+    .section-body {
+      max-width: 520px;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 auto;
+    }
+
+
+
+    .affirmation-list {
+      max-width: 620px;
+    }
+
+    .affirmation-list p {
+      margin: 6px 0;
+    }
+
+    .goals-subtitle {
+      margin: -6px 0 18px;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffc5df !important;
+      letter-spacing: 0.02em;
+    }
+
+    .goals-list {
+      width: fit-content;
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      column-gap: 10px;
+      row-gap: 8px;
+      align-items: center;
+      text-align: left !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .goals-list .goal-row {
+      display: contents;
+    }
+
+    .goals-list .goal-heart,
+    .goals-list .goal-text {
+      text-align: left;
+    }
+
+    .goals-list .goal-heart {
+      justify-self: start;
+    }
+
+    .goals-list .goal-text {
+      justify-self: start;
+      min-width: 0;
+    }
+
+
+    .goals-list code {
+      display: inline-block;
+      justify-self: start;
+      padding: 2px 10px;
+      margin-left: 0;
+      border-radius: 999px;
+      background: rgba(255, 197, 223, 0.22);
+      border: 1px solid rgba(255, 197, 223, 0.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(255, 197, 223, 0.12);
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      font-weight: 800;
+      color: #ffe1ee !important;
+    }
+
+    .goals-image {
+      display: block;
+      width: min(100%, 760px);
+      margin: 26px auto 0;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+    }
+
+
+
+
+    #extra-section .section-body,
+    #extra-section .section-body * {
+      font-family: 'Roboto Mono', "Courier New", Courier, monospace !important;
+      font-weight: 800;
+    }
+
+    #extra-section .hike-metric {
+      font-family: 'Roboto Mono', "Courier New", Courier, monospace !important;
+    }
+
+    .sidequest-list {
+      width: min(100%, 740px);
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      text-transform: uppercase;
+      text-align: left !important;
+    }
+
+    .sidequest-columns {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+      column-gap: 22px;
+      align-items: stretch;
+    }
+
+    .sidequest-column {
+      min-width: 0;
+    }
+
+    .sidequest-divider {
+      width: 1px;
+      min-height: 170px;
+      align-self: stretch;
+      border-radius: 999px;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 197, 223, 0.38),
+        rgba(255, 255, 255, 0.32),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    .sidequest-list-title {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 12px;
+      padding: 0;
+      text-align: center;
+      font-size: 21px;
+      line-height: 1.2;
+      color: #ffc5df !important;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .sidequest-items {
+      display: grid;
+      gap: 6px;
+    }
+
+    .sidequest-row,
+    .sidequest-rating {
+      font-size: clamp(10px, 2vw, 16px);
+    }
+
+    .sidequest-row {
+      display: grid;
+      grid-template-columns: 16px minmax(0, 1fr) 50px;
+      column-gap: 5px;
+      align-items: center;
+      justify-items: start;
+    }
+
+    .sidequest-row > span:first-child,
+    .sidequest-row > span:nth-child(2) {
+      justify-self: start;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .sidequest-rating {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: end;
+      min-width: 50px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 197, 223, 0.22);
+      border: 1px solid rgba(255, 197, 223, 0.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(255, 197, 223, 0.12);
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 800;
+      color: #ffe1ee !important;
+      text-align: center;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .sidequest-row > span:last-child:empty {
+      display: block;
+      width: 50px;
+      justify-self: end;
+    }
+
+
+    .touching-grass-body {
+      width: 100%;
+      max-width: none !important;
+      margin: 0 auto;
+      font-size: 15px;
+    }
+
+    .touching-grass-body .sidequest-row,
+    .touching-grass-body .sidequest-rating {
+      font-size: clamp(9px, 2vw, 15px);
+    }
+
+    .grass-link-row {
+      width: 100%;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    .grass-click-link {
+      color: inherit;
+      text-decoration: none;
+      font-size: 0.7em;
+      font: inherit;
+    }
+
+    .grass-list {
+      width: 100%;
+      max-width: none !important;
+      margin: 0 auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+    }
+
+    .grass-difficulty-group {
+      width: 100%;
+      min-width: 100%;
+      margin: 0;
+    }
+
+    .grass-difficulty-group .sidequest-list-title {
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left !important;
+    }
+
+    .grass-list .sidequest-items {
+      width: max-content;
+      min-width: 100%;
+      justify-items: start;
+    }
+
+    .hike-row {
+      grid-template-columns: 24px max-content !important;
+      width: max-content;
+      max-width: none;
+      column-gap: 8px;
+      align-items: start;
+      justify-content: start;
+    }
+
+    .hike-row > span:nth-child(2) {
+      white-space: nowrap !important;
+      line-height: 1.35;
+    }
+
+
+    .hike-row strong {
+      font-weight: 900 !important;
+    }
+
+    .hike-name {
+      position: relative;
+      cursor: help;
+      outline: none;
+      transition: color 160ms ease, text-shadow 160ms ease;
+    }
+
+    .hike-name:hover,
+    .hike-name:focus-visible,
+    .hike-name.is-note-open {
+      color: #ffc5df !important;
+      text-shadow: 0 0 12px rgba(255, 197, 223, 0.55);
+    }
+
+    .hike-sticky-tooltip {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: min(270px, calc(100vw - 28px));
+      min-height: 165px;
+      padding: 50px 28px 28px;
+      border-radius: 4px 4px 16px 4px;
+      background:
+        linear-gradient(rgba(255,255,255,0.13) 1px, transparent 1px) 0 44px / 100% 27px,
+        linear-gradient(145deg, #ffd9e9 0%, #ffc5df 72%, #f7aecf 100%);
+      color: #5d4050 !important;
+      font-family: 'Nunito', system-ui, sans-serif !important;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.55;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      text-align: left;
+      box-shadow:
+        0 18px 36px rgba(31, 16, 28, 0.30),
+        inset 0 1px 0 rgba(255,255,255,0.65);
+      transform: translateY(8px) rotate(-1.5deg) scale(0.94);
+      transform-origin: 28px 28px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 99999;
+      transition: opacity 150ms ease, transform 150ms ease, visibility 150ms ease;
+    }
+
+    .hike-sticky-tooltip strong {
+      color: inherit !important;
+    }
+
+    .hike-sticky-tooltip.is-large {
+      width: min(440px, calc(100vw - 32px));
+      min-height: 390px;
+      padding: 54px 34px 32px;
+    }
+
+    /* Keep the Top of the World note wide enough to read while allowing its
+       height to hug the actual text with almost no unused space. */
+    .hike-sticky-tooltip.is-fit {
+      width: min(440px, calc(100vw - 32px));
+      min-height: 0;
+      padding: 54px 34px 20px;
+    }
+
+    .hike-sticky-tooltip::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      width: 76px;
+      height: 23px;
+      border-radius: 2px;
+      background: rgba(255, 244, 197, 0.82);
+      box-shadow: 0 2px 5px rgba(83, 59, 37, 0.16);
+      transform: translateX(-50%) rotate(2deg);
+    }
+
+    .hike-sticky-tooltip::after {
+      content: '✿ trail note';
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      width: calc(100% - 40px);
+      margin: 0;
+      transform: translateX(-50%);
+      color: #9b5d79 !important;
+      font-family: 'Roboto Mono', monospace !important;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      text-align: center;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .hike-sticky-tooltip.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) rotate(-1.5deg) scale(1);
+    }
+
+    @media (max-width: 640px), (pointer: coarse) {
+      .hike-sticky-tooltip {
+        width: min(250px, calc(100vw - 24px));
+        min-height: 145px;
+        padding: 47px 23px 23px;
+        font-size: 14px;
+      }
+
+      .hike-sticky-tooltip.is-large {
+        width: calc(100vw - 24px);
+        min-height: 0;
+        max-height: 78vh;
+        padding: 50px 24px 26px;
+        overflow-y: auto;
+      }
+
+
+      .hike-sticky-tooltip.is-fit {
+        width: calc(100vw - 24px);
+        min-height: 0;
+        padding: 50px 24px 18px;
+      }
+    }
+
+
+    .hike-metric {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff !important;
+      font-family: 'Roboto Mono', "Courier New", Courier, monospace !important;
+      font-size: 0.78em;
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+      padding: 4px 10px;
+      margin: 0 2px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .hike-check {
+      color: #ffc5df !important;
+      font-size: 1.08em;
+      line-height: 1.25;
+      text-shadow: none;
+    }
+
+    .checked-box {
+      filter: none;
+    }
+
+    .empty-box {
+      opacity: 0.82;
+    }
+
+    .grass-section-divider {
+      height: 1px;
+      width: min(100%, 640px);
+      margin: 22px auto;
+      border-radius: 999px;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 197, 223, 0.40),
+        rgba(255, 255, 255, 0.32),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+
+    /* Cute tabs only: no large glass section behind them */
+    .nav-tabs-section {
+      width: min(100%, 560px);
+      padding: 0;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0;
+    }
+
+    .nav-tabs-section .section-tabs {
+      margin: 0 auto;
+    }
+
+    .section-tabs {
+      width: min(100%, 560px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 0 auto;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .tab-button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: transparent;
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .tab-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    .tab-button.is-active {
+      background: rgba(255, 197, 223, 0.30);
+      box-shadow: 0 8px 22px rgba(255, 197, 223, 0.18);
+      color: #ffc5df !important;
+    }
+
+    .tab-panels,
+    .tab-panel {
+      width: 100%;
+    }
+
+    .tab-panel[hidden] {
+      display: none !important;
+    }
+
+    /* Tab content: home shows the main site; sidequests/rmn show their own sections */
+    body:not(.show-heart) .heart-panel-section,
+    body:not(.show-rmn) .rmn-panel-section {
+      display: none !important;
+    }
+
+    body.show-heart .home-panel-section,
+    body.show-heart .rmn-panel-section,
+    body.show-rmn .home-panel-section,
+    body.show-rmn .heart-panel-section {
+      display: none !important;
+    }
+
+    body.show-heart .heart-panel-section,
+    body.show-rmn .rmn-panel-section {
+      display: flex !important;
+    }
+    /* Keep the initial view, Home, and Sidequests on the original solid baby-pink background. */
+    body:not(.show-cat):not(.show-rmn) .page-bg {
+      background-image: none !important;
+      background-color: #ffc5df;
+      filter: none;
+    }
+
+    body.show-rmn .page-bg {
+      filter: none;
+    }
+
+    .tab-placeholder {
+      min-height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-weight: 800;
+      color: #ffe1ee !important;
+    }
+
+    .rmn-doc-preview {
+      width: min(100%, 780px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .rmn-preview-frame {
+      width: 100%;
+      height: min(70vh, 620px);
+      min-height: 420px;
+      border: 1px solid rgba(255, 197, 223, 0.38);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 45px rgba(68, 52, 92, 0.14);
+      overflow: hidden;
+    }
+
+    .rmn-preview-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .rmn-doc-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255, 197, 223, 0.22);
+      border: 1px solid rgba(255, 197, 223, 0.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(255, 197, 223, 0.12);
+      font-weight: 900;
+      text-decoration: none;
+      color: #ffe1ee !important;
+    }
+
+    .site-title {
+      font-size: clamp(38px, 5vw, 44px);
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+    }
+
+    #middle-section .section-title {
+      font-size: 28px !important;
+      line-height: 1.1;
+      color: #ffc5df !important;
+    }
+
+    #affirmations-section .section-title {
+      font-size: 28px !important;
+      line-height: 1.1;
+    }
+
+    #extra-section .section-title {
+      font-size: 28px !important;
+      line-height: 1.1;
+    }
+
+
+
+    .hero-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 24px;
+      margin-top: 0.75rem;
+    }
+
+
+    .site-header {
+      min-height: 560px;
+      justify-content: flex-start;
+    }
+
+    .hero-row {
+      min-height: 440px;
+    }
+
+    .cycling-photo-frame {
+      width: min(48vw, 420px);
+      height: 420px;
+      max-width: 420px;
+      flex: 0 0 min(48vw, 420px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      overflow: hidden;
+    }
+
+    .cycling-photo-frame .site-quote-image {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      margin: 0;
+      align-self: center;
+    }
+
+    .daily-inline {
+      width: min(100%, 340px);
+      margin: 0 auto;
+      padding: 0;
+      text-align: center;
+      flex: 0 0 340px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      align-self: center;
+    }
+
+    .daily-title {
+      margin: 0 0 0.85rem;
+      font-size: 28px !important;
+      font-weight: 800;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .daily-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      width: 100%;
+    }
+
+    .daily-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .daily-link {
+      gap: 0.65rem;
+    }
+
+    .daily-link img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      flex: 0 0 22px;
+      display: block;
+    }
+
+    .daily-link .company-name {
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .daily-link:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.20);
+    }
+
+
+    a:hover,
+    a:focus-visible,
+    a:hover .company-name,
+    a:focus-visible .company-name {
+      color: #ffc5df !important;
+      text-shadow: 0 0 12px rgba(255, 197, 223, 0.55);
+    }
+
+    .daily-link:hover,
+    .daily-link:focus-visible,
+    .rmn-doc-link:hover,
+    .rmn-doc-link:focus-visible {
+      border-color: rgba(255, 197, 223, 0.65) !important;
+    }
+
+    .site-quote-image {
+      display: block;
+      border-radius: 8px;
+      transition: transform 0.7s ease, opacity 0.7s ease;
+      will-change: transform, opacity;
+    }
+
+    .site-quote-image.slide-out-up {
+      transform: translateY(-28px);
+      opacity: 0;
+    }
+
+    .site-quote-image.slide-in-from-bottom {
+      transform: translateY(28px);
+      opacity: 0;
+    }
+
+    /* Let the shared flex gaps control spacing evenly between every section */
+    .site-header,
+    .section,
+    .site-footer {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .bookshelf {
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .shelf-plank {
+      width: min(100%, 720px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .spotify-frame {
+      width: min(100%, 650px);
+    }
+
+    .spotify-frame iframe {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+
+    /* Justin-style falling rose/flower overlay */
+    .falling-roses {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .falling-rose {
+      position: absolute;
+      top: -12vh;
+      left: var(--x);
+      font-size: var(--size);
+      line-height: 1;
+      opacity: 0;
+      color: rgba(255, 190, 224, 0.92);
+      text-shadow: 0 0 8px rgba(255, 235, 246, 0.65);
+      animation: roseFall var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      will-change: transform, opacity;
+    }
+
+    .falling-rose:nth-child(3n) {
+      color: rgba(255, 166, 208, 0.88);
+    }
+
+    .falling-rose:nth-child(4n) {
+      color: rgba(255, 220, 238, 0.86);
+      font-size: calc(var(--size) * 0.82);
+    }
+
+    @keyframes roseFall {
+      0% {
+        transform: translate3d(0, -14vh, 0) rotate(0deg) scale(0.85);
+        opacity: 0;
+      }
+      8% {
+        opacity: 0.85;
+      }
+      28% {
+        transform: translate3d(calc(var(--drift) * 0.35), 28vh, 0) rotate(115deg) scale(1);
+      }
+      55% {
+        transform: translate3d(calc(var(--drift) * -0.25), 58vh, 0) rotate(235deg) scale(0.95);
+        opacity: 0.82;
+      }
+      82% {
+        transform: translate3d(var(--drift), 92vh, 0) rotate(345deg) scale(1.02);
+        opacity: 0.58;
+      }
+      100% {
+        transform: translate3d(calc(var(--drift) * 0.7), 118vh, 0) rotate(430deg) scale(0.9);
+        opacity: 0;
+      }
+    }
+
+    .pink-cursor-aura,
+    .pink-cursor-dot {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        align-items: flex-start;
+        padding: 24px 12px;
+      }
+
+      .site-card {
+        width: 100%;
+      }
+
+
+      .site-header {
+        min-height: auto;
+      }
+
+      .hero-row {
+        flex-direction: column;
+        gap: 16px;
+        min-height: auto;
+      }
+
+      .daily-inline {
+        width: min(100%, 320px);
+        flex: none;
+        order: 1;
+        text-align: center;
+      }
+
+      .daily-title,
+      .daily-links {
+        text-align: center;
+        align-items: center;
+      }
+
+      .cycling-photo-frame {
+        width: min(88vw, 360px);
+        height: 360px;
+        flex: none;
+        order: 2;
+      }
+
+      .site-quote-image {
+        align-self: center;
+        margin: 0 auto;
+      }
+
+      .nav-tabs-section,
+      .site-header,
+      .section {
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
+    }
+
+    /* Responsive polish: lets the page adapt when the Chrome tab gets narrow or short */
+    @media (max-width: 900px) {
+      body {
+        align-items: flex-start;
+        padding: 24px 12px;
+      }
+
+      .site-card {
+        width: 100%;
+        max-width: 850px;
+      }
+
+      .site-header {
+        min-height: auto;
+      }
+
+      .hero-row {
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+        min-height: auto;
+      }
+
+      .daily-inline {
+        width: min(100%, 340px);
+        max-width: 340px;
+        flex: 1 1 auto;
+        order: 1;
+      }
+
+      .cycling-photo-frame {
+        width: min(88vw, 360px);
+        max-width: 360px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        flex: 0 1 auto;
+        order: 2;
+      }
+
+      .nav-tabs-section,
+      .site-header,
+      .section {
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-card {
+        --section-gap: 1.25rem;
+      }
+
+      .site-title {
+        font-size: clamp(30px, 10vw, 38px);
+      }
+
+      #middle-section .section-title {
+        font-size: 28px !important;
+      }
+
+      #affirmations-section .section-title {
+        font-size: 28px !important;
+      }
+
+      #extra-section .section-title {
+        font-size: 28px !important;
+      }
+
+      .nav-tabs-section,
+      .site-header,
+      .section {
+        padding: 18px 12px;
+      }
+
+      .daily-link {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+
+      .spotify-frame iframe {
+        height: 300px;
+      }
+    }
+
+    @media (max-height: 760px) {
+      body {
+        align-items: flex-start;
+      }
+
+      .site-header,
+      .hero-row {
+        min-height: auto;
+      }
+    }
+
+
+    /* Make all body/content text bold */
+    .section-body,
+    .section-body p,
+    .section-body li,
+    .section-body span,
+    .daily-link,
+    .rmn-doc-link,
+    .goals-subtitle,
+    .goals-list,
+    .goals-list .goal-heart,
+    .goals-list .goal-text,
+    .goals-list code,
+    .sidequest-row,
+    .site-subtitle,
+    .section-hint,
+    .site-footer p {
+      font-weight: 800 !important;
+    }
+
+
+    #cycling-photo {
+      cursor: pointer;
+    }
+
+
+    @supports (-webkit-touch-callout: none) {
+      html,
+      body {
+        min-height: 100svh;
+      }
+
+      body {
+        align-items: flex-start;
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+      }
+
+      .page-bg {
+        height: 100svh;
+        min-height: 100svh;
+        background-position: center center;
+      }
+    }
+
+  </style>
+
+<style>
+  /* Touching Grass checklist: baby pink checkboxes */
+  #touching-grass input[type="checkbox"],
+  .touching-grass input[type="checkbox"],
+  [data-section="touching-grass"] input[type="checkbox"] {
+    accent-color: #ffc5df !important;
+  }
+
+  #touching-grass .custom-checkbox,
+  .touching-grass .custom-checkbox,
+  [data-section="touching-grass"] .custom-checkbox {
+    border-color: #ffc5df !important;
+  }
+
+  #touching-grass input[type="checkbox"]:checked + .custom-checkbox,
+  .touching-grass input[type="checkbox"]:checked + .custom-checkbox,
+  [data-section="touching-grass"] input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #ffc5df !important;
+  }
+</style>
+
+
+
+<style>
+  /* ============ CAT TOWN ============ */
+  body:not(.show-cat) .cat-panel-section {
+    display: none !important;
+  }
+
+  body.show-cat .home-panel-section,
+  body.show-cat .heart-panel-section,
+  body.show-cat .rmn-panel-section {
+    display: none !important;
+  }
+
+  body.show-cat .cat-panel-section {
+    display: flex !important;
+  }
+
+  body.show-cat .site-card {
+    width: min(96vw, 1040px);
+    max-width: 1040px;
+  }
+
+  body.show-cat .page-bg {
+    filter: none;
+  }
+
+  .cat-panel-section {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 24px 18px 20px;
+    overflow: visible;
+  }
+
+  .cat-town-subtitle,
+  .cat-town-note {
+    margin: 0;
+    color: #ffe2ef !important;
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .cat-panel-section > .section-title {
+    margin-bottom: 2px;
+  }
+
+  .cat-town-subtitle {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .cat-town-note {
+    font-size: 13px;
+    opacity: 0.88;
+  }
+
+  #cat-tab {
+    white-space: nowrap;
+  }
+
+  .cat-game-shell {
+    position: relative;
+    perspective: 1100px;
+    --cat-tilt-x: 0deg;
+    --cat-tilt-y: 0deg;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 10;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 226, 239, 0.78);
+    box-shadow:
+      0 24px 60px rgba(10, 23, 37, 0.34),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+    background: #9edc9c;
+    touch-action: none;
+  }
+
+  #cat-town-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    image-rendering: auto;
+    transform-origin: center center;
+    transform: rotateX(var(--cat-tilt-x)) rotateY(var(--cat-tilt-y)) scale(1.045);
+    transition: transform 120ms ease-out;
+    will-change: transform;
+  }
+
+  #cat-town-canvas:focus-visible {
+    box-shadow: inset 0 0 0 4px rgba(255, 197, 223, 0.9);
+  }
+
+  .cat-town-hud {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .cat-town-place,
+  .cat-town-time,
+  .cat-town-hint,
+  .cat-town-counter {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    color: #4b4050 !important;
+    background: rgba(255, 249, 244, 0.90);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 7px 18px rgba(61, 73, 68, 0.18);
+    font: 800 13px/1.1 'Nunito', system-ui, sans-serif;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .cat-town-hint {
+    font-size: 12px;
+    opacity: 0.94;
+  }
+
+  .cat-town-time,
+  .cat-town-counter {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .cat-town-time {
+    min-width: 170px;
+    justify-content: center;
+    color: #66556d !important;
+  }
+
+  .cat-town-dialog {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    z-index: 5;
+    width: min(86%, 610px);
+    transform: translateX(-50%);
+    padding: 18px 20px 16px;
+    text-align: left;
+    border-radius: 24px 24px 20px 20px;
+    background: rgba(255, 250, 247, 0.97);
+    border: 3px solid #ffc5df;
+    box-shadow: 0 16px 40px rgba(43, 42, 53, 0.28);
+    color: #453d49 !important;
+  }
+
+  .cat-town-dialog[hidden] {
+    display: none !important;
+  }
+
+  .cat-town-dialog-name {
+    display: inline-block;
+    margin-top: -35px;
+    margin-bottom: 7px;
+    padding: 7px 15px;
+    border-radius: 999px;
+    background: #ffc5df;
+    color: #4b4050 !important;
+    font: 900 14px/1 'Nunito', system-ui, sans-serif;
+    box-shadow: 0 5px 12px rgba(77, 55, 68, 0.16);
+  }
+
+  .cat-town-dialog-text {
+    font: 800 15px/1.45 'Nunito', system-ui, sans-serif;
+    color: #453d49 !important;
+    white-space: pre-wrap;
+  }
+
+  .cat-town-dialog-text em {
+    color: #000000 !important;
+  }
+
+  .cat-town-dialog-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 17px;
+    transform: translateX(-50%);
+    max-width: 55%;
+    color: #6d5a68 !important;
+    font: 900 12px/1.2 'Nunito', system-ui, sans-serif;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .cat-town-dialog-hint[hidden] {
+    display: none !important;
+  }
+
+  .cat-town-dialog-close {
+    display: block;
+    margin: 12px 0 0 auto;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 16px;
+    background: #ffc5df;
+    color: #4b4050 !important;
+    font: 900 13px/1 'Nunito', system-ui, sans-serif;
+    box-shadow: 0 5px 12px rgba(77, 55, 68, 0.14);
+  }
+
+  /* Matcha cafe dialog variant: a little more in-world with soft sage,
+     cream, and warm wood tones while still matching the rest of Meow Town. */
+  .cat-town-dialog.theme-cafe {
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.98) 0%, rgba(240, 248, 235, 0.98) 100%);
+    border-color: #9fc9a9;
+    box-shadow: 0 16px 40px rgba(76, 88, 74, 0.24), inset 0 0 0 5px rgba(255, 244, 232, 0.9);
+    color: #415148 !important;
+  }
+
+  .cat-town-dialog.theme-cafe .cat-town-dialog-name {
+    background: linear-gradient(180deg, #b9dfb8 0%, #9fc9a9 100%);
+    color: #405046 !important;
+    box-shadow: 0 5px 12px rgba(75, 101, 80, 0.18);
+  }
+
+  .cat-town-dialog.theme-cafe .cat-town-dialog-text {
+    color: #415148 !important;
+  }
+
+  .cat-town-dialog.theme-cafe .cat-town-dialog-close {
+    background: linear-gradient(180deg, #ffd8e8 0%, #ffc5df 100%);
+    color: #4f4a45 !important;
+    box-shadow: 0 5px 12px rgba(101, 82, 88, 0.15);
+  }
+
+  .cat-town-dialog.theme-cafe .cat-town-dialog-hint {
+    color: #617166 !important;
+  }
+
+  .cat-town-meow-button {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 6;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.66);
+    border-radius: 50%;
+    background: rgba(255, 197, 223, 0.52);
+    color: #554857 !important;
+    box-shadow: 0 7px 17px rgba(58, 45, 58, 0.17);
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .cat-town-volume-control {
+    position: absolute;
+    right: 76px;
+    bottom: 18px;
+    z-index: 7;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+  }
+
+  .cat-town-volume-control .cat-town-sound-button {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    flex: 0 0 auto;
+    font-size: 20px;
+  }
+
+  .cat-town-volume-panel {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 9px);
+    width: 112px;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    pointer-events: none;
+    padding: 7px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 999px;
+    background: rgba(255, 244, 249, 0.42);
+    box-shadow: 0 7px 17px rgba(58, 45, 58, 0.13);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transform: translate(-50%, 7px) scale(0.96);
+    transform-origin: bottom center;
+    transition: opacity 150ms ease, transform 170ms ease, visibility 0s linear 170ms;
+  }
+
+  .cat-town-volume-control.is-open .cat-town-volume-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0) scale(1);
+    transition: opacity 150ms ease, transform 170ms ease, visibility 0s;
+  }
+
+  .cat-town-volume-slider {
+    display: block;
+    width: 88px;
+    height: 18px;
+    margin: 0;
+    accent-color: #ffc5df;
+    cursor: pointer;
+  }
+
+  .cat-town-volume-slider:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.96);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+
+  .cat-town-meow-button:hover {
+    transform: translateY(-2px) scale(1.04);
+    background: rgba(255, 215, 232, 0.70);
+    box-shadow: 0 9px 20px rgba(58, 45, 58, 0.21);
+  }
+
+  .cat-town-meow-button:active,
+  .cat-town-meow-button.is-meowing {
+    transform: scale(0.92);
+  }
+
+  .cat-town-meow-button:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.96);
+    outline-offset: 3px;
+  }
+
+  .cat-town-mobile-controls {
+    display: none;
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .cat-town-control {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 50%;
+    background: rgba(255, 249, 244, 0.82);
+    color: #554857 !important;
+    box-shadow: 0 7px 18px rgba(40, 47, 46, 0.22);
+    font: 900 17px/1 'Nunito', system-ui, sans-serif;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .cat-town-control:active,
+  .cat-town-control.is-pressed {
+    transform: scale(0.93);
+    background: rgba(255, 197, 223, 0.94);
+  }
+
+  .cat-up { left: 48px; bottom: 52px; }
+  .cat-left { left: 0; bottom: 4px; }
+  .cat-down { left: 48px; bottom: 4px; }
+  .cat-right { left: 96px; bottom: 4px; }
+
+  .cat-action {
+    right: 0;
+    bottom: 7px;
+    width: 58px;
+    height: 58px;
+    background: rgba(255, 197, 223, 0.90);
+    font-size: 25px;
+  }
+
+  @media (max-width: 720px), (pointer: coarse) {
+    .section-tabs {
+      gap: 4px;
+      padding: 5px;
+    }
+
+    .tab-button {
+      padding: 9px 6px;
+      font-size: 14px;
+    }
+
+    .cat-panel-section {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .cat-game-shell {
+      border-radius: 20px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .cat-town-mobile-controls {
+      display: block;
+    }
+
+    .cat-town-hint {
+      display: none;
+    }
+
+    .cat-town-place {
+      min-height: 30px;
+      padding: 6px 11px;
+      font-size: 11px;
+    }
+
+    .cat-town-time {
+      min-width: 0;
+      padding: 6px 10px;
+      font-size: 10px;
+    }
+
+    .cat-town-meow-button {
+      right: 17px;
+      bottom: 88px;
+      width: 46px;
+      height: 46px;
+      font-size: 21px;
+    }
+
+    .cat-town-volume-control {
+      right: 70px;
+      bottom: 88px;
+    }
+
+    .cat-town-volume-control .cat-town-sound-button {
+      font-size: 18px;
+    }
+
+    .cat-town-volume-control {
+      width: 46px;
+      height: 46px;
+    }
+
+    .cat-town-volume-control .cat-town-volume-panel {
+      width: 98px;
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    .cat-town-volume-slider {
+      width: 78px;
+    }
+
+    .cat-town-dialog {
+      bottom: 84px;
+      width: calc(100% - 28px);
+      padding: 16px 17px 14px;
+    }
+
+    .cat-town-dialog-text {
+      font-size: 14px;
+    }
+  }
+</style>
+
+
+<style>
+  /* Night-sky background for the Home and Sidequests tabs */
+  body:not(.show-cat):not(.show-rmn) .page-bg,
+  body.show-home .page-bg,
+  body.show-heart .page-bg {
+    background-color: #07143d !important;
+    background-image: url("assets/asset_004.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    filter: none !important;
+  }
+</style>
+
+</head>
+<body>
+
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <div class="falling-roses" aria-hidden="true">
+    <span class="falling-rose" style="--x: 3vw; --size: 24px; --duration: 11s; --delay: -1s; --drift: 38px;">✿</span>
+    <span class="falling-rose" style="--x: 8vw; --size: 18px; --duration: 13s; --delay: -5s; --drift: -45px;">❀</span>
+    <span class="falling-rose" style="--x: 13vw; --size: 20px; --duration: 10s; --delay: -7s; --drift: 54px;">✽</span>
+    <span class="falling-rose" style="--x: 18vw; --size: 16px; --duration: 12s; --delay: -3s; --drift: -36px;">✿</span>
+    <span class="falling-rose" style="--x: 23vw; --size: 22px; --duration: 14s; --delay: -9s; --drift: 42px;">❀</span>
+    <span class="falling-rose" style="--x: 29vw; --size: 19px; --duration: 11s; --delay: -6s; --drift: -50px;">✿</span>
+    <span class="falling-rose" style="--x: 34vw; --size: 15px; --duration: 13s; --delay: -2s; --drift: 55px;">✽</span>
+    <span class="falling-rose" style="--x: 40vw; --size: 21px; --duration: 10.5s; --delay: -8s; --drift: -44px;">❀</span>
+    <span class="falling-rose" style="--x: 46vw; --size: 17px; --duration: 12.5s; --delay: -4s; --drift: 48px;">✿</span>
+    <span class="falling-rose" style="--x: 51vw; --size: 24px; --duration: 14.5s; --delay: -11s; --drift: -58px;">❀</span>
+    <span class="falling-rose" style="--x: 56vw; --size: 16px; --duration: 10.8s; --delay: -1.5s; --drift: 40px;">✽</span>
+    <span class="falling-rose" style="--x: 61vw; --size: 21px; --duration: 13.3s; --delay: -6.5s; --drift: -46px;">✿</span>
+    <span class="falling-rose" style="--x: 66vw; --size: 18px; --duration: 11.7s; --delay: -3.7s; --drift: 52px;">❀</span>
+    <span class="falling-rose" style="--x: 72vw; --size: 22px; --duration: 14s; --delay: -10s; --drift: -54px;">✿</span>
+    <span class="falling-rose" style="--x: 78vw; --size: 15px; --duration: 12.2s; --delay: -4.7s; --drift: 45px;">✽</span>
+    <span class="falling-rose" style="--x: 83vw; --size: 20px; --duration: 10.6s; --delay: -8.4s; --drift: -48px;">❀</span>
+    <span class="falling-rose" style="--x: 88vw; --size: 18px; --duration: 13.7s; --delay: -2.4s; --drift: 36px;">✿</span>
+    <span class="falling-rose" style="--x: 94vw; --size: 23px; --duration: 12.8s; --delay: -7.6s; --drift: -52px;">❀</span>
+    <span class="falling-rose" style="--x: 1vw; --size: 16px; --duration: 9.8s; --delay: -6.2s; --drift: 64px;">✿</span>
+    <span class="falling-rose" style="--x: 11vw; --size: 14px; --duration: 15s; --delay: -12s; --drift: -68px;">✽</span>
+    <span class="falling-rose" style="--x: 20vw; --size: 17px; --duration: 11.2s; --delay: -0.8s; --drift: 35px;">❀</span>
+    <span class="falling-rose" style="--x: 31vw; --size: 23px; --duration: 13.9s; --delay: -9.1s; --drift: -60px;">✿</span>
+    <span class="falling-rose" style="--x: 37vw; --size: 16px; --duration: 10.2s; --delay: -5.4s; --drift: 44px;">❀</span>
+    <span class="falling-rose" style="--x: 49vw; --size: 19px; --duration: 12.9s; --delay: -2.8s; --drift: -42px;">✽</span>
+    <span class="falling-rose" style="--x: 59vw; --size: 14px; --duration: 14.8s; --delay: -13.2s; --drift: 58px;">✿</span>
+    <span class="falling-rose" style="--x: 69vw; --size: 25px; --duration: 11.4s; --delay: -4.4s; --drift: -56px;">❀</span>
+    <span class="falling-rose" style="--x: 74vw; --size: 17px; --duration: 10.9s; --delay: -8.8s; --drift: 39px;">✿</span>
+    <span class="falling-rose" style="--x: 86vw; --size: 15px; --duration: 13.1s; --delay: -6.7s; --drift: -34px;">✽</span>
+    <span class="falling-rose" style="--x: 97vw; --size: 18px; --duration: 12.1s; --delay: -3.1s; --drift: 50px;">❀</span>
+    <span class="falling-rose" style="--x: 5vw; --size: 21px; --duration: 14.1s; --delay: -10.4s; --drift: -43px;">✿</span>
+    <span class="falling-rose" style="--x: 26vw; --size: 15px; --duration: 9.9s; --delay: -2.2s; --drift: 47px;">❀</span>
+    <span class="falling-rose" style="--x: 43vw; --size: 22px; --duration: 15.5s; --delay: -14s; --drift: -66px;">✿</span>
+    <span class="falling-rose" style="--x: 63vw; --size: 18px; --duration: 11.9s; --delay: -1.9s; --drift: 32px;">✽</span>
+    <span class="falling-rose" style="--x: 91vw; --size: 16px; --duration: 13.6s; --delay: -7.1s; --drift: -39px;">❀</span>
+  </div>
+
+  <!-- Everything lives inside one centered, glassy card.
+       The animated background sits behind it (see styles.css). -->
+  <div class="site-card">
+
+
+  <!-- ============ TABS ============ -->
+  <section class="nav-tabs-section" aria-label="site tabs">
+    <div class="section-tabs" role="tablist" aria-label="section tabs">
+      <button class="tab-button is-active" type="button" role="tab" aria-selected="true" id="home-tab">home</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" id="heart-tab">sidequests</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" id="cat-tab">meow&nbsp;town</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" id="rmn-tab">rmn</button>
+    </div>
+  </section>
+
+
+  <!-- ============ CAT TOWN TAB SECTION ============ -->
+  <section class="section cat-panel-section" id="cat-section">
+    <h2 class="section-title">meow town</h2>
+    <p class="cat-town-subtitle">guide little renee around town and see what magical things she finds! :3</p>
+
+    <div class="cat-game-shell" id="cat-game-shell">
+      <canvas
+        id="cat-town-canvas"
+        width="960"
+        height="600"
+        tabindex="0"
+        aria-label="A cozy meow town game. Guide little Renee around town and collect memories along the way."
+      ></canvas>
+
+      <div class="cat-town-hud" aria-hidden="true">
+        <span class="cat-town-place" id="cat-town-place">peach blossom plaza</span>
+        <span class="cat-town-counter" id="cat-town-counter">critters caught: 0</span>
+      </div>
+
+      <div class="cat-town-dialog" id="cat-town-dialog" role="status" aria-live="polite" hidden>
+        <div class="cat-town-dialog-name" id="cat-town-dialog-name">meow town</div>
+        <div class="cat-town-dialog-text" id="cat-town-dialog-text"></div>
+        <div class="cat-town-dialog-hint" id="cat-town-dialog-hint" hidden>pssst. press T to make ur wish count!</div>
+        <button class="cat-town-dialog-close" id="cat-town-dialog-close" type="button">okay ♡</button>
+      </div>
+
+      <div class="cat-town-volume-control" id="cat-town-volume-control">
+        <div class="cat-town-volume-panel">
+          <input
+            class="cat-town-volume-slider"
+            id="cat-town-volume-slider"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="27"
+            aria-label="Background music volume"
+            title="background music volume"
+          />
+        </div>
+        <button
+          type="button"
+          class="cat-town-meow-button cat-town-sound-button"
+          id="cat-town-sound-button"
+          aria-label="Turn background music off"
+          aria-pressed="false"
+          title="music on"
+        >🔊</button>
+      </div>
+
+      <button
+        type="button"
+        class="cat-town-meow-button"
+        id="cat-town-meow-button"
+        aria-label="Make Renee say meow"
+        title="say meow :3"
+      >🐾</button>
+
+      <div class="cat-town-mobile-controls" aria-label="Meow town movement controls">
+        <button type="button" class="cat-town-control cat-up" data-direction="up" aria-label="Move up">▲</button>
+        <button type="button" class="cat-town-control cat-left" data-direction="left" aria-label="Move left">◀</button>
+        <button type="button" class="cat-town-control cat-down" data-direction="down" aria-label="Move down">▼</button>
+        <button type="button" class="cat-town-control cat-right" data-direction="right" aria-label="Move right">▶</button>
+        <button type="button" class="cat-town-control cat-action" id="cat-town-action" aria-label="Interact">♡</button>
+      </div>
+    </div>
+
+    <p class="cat-town-note">follow the sparkles to discover little pieces of renee's world</p>
+  </section>
+
+  <!-- ============ RMN TAB SECTION ============ -->
+  <section class="section rmn-panel-section" id="rmn-section">
+    <h2 class="section-title">renee &amp; nathan's adventures</h2>
+    <div class="section-body rmn-doc-preview">
+      <div class="rmn-preview-frame">
+        <iframe
+          title="rmn forever &lt;3 preview"
+          src="https://docs.google.com/document/d/10CrZE3_bo1fHHVyWLNuijOfnAKkXBaW1EPJ7YtvtCHw/preview"
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="rmn-doc-link" href="https://docs.google.com/document/d/10CrZE3_bo1fHHVyWLNuijOfnAKkXBaW1EPJ7YtvtCHw/edit?usp=sharing" target="_blank" rel="noopener noreferrer">open full doc ♡</a>
+    </div>
+  </section>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header home-panel-section">
+    <h1 class="site-title">meow (˶˃ ᵕ ˂˶)</h1>
+
+    <div class="hero-row">
+      <div class="daily-inline" aria-label="daily links">
+        <h2 class="daily-title">pretty nursie girl :3</h2>
+        <nav class="daily-links">
+        <a class="daily-link" href="https://jobs.uci.edu/careers-home/jobs?page=1&amp;categories=Nursing&amp;keywords=clinical%20nurse%20i&amp;sortBy=posted_date&amp;descending=true" target="_blank" rel="noopener noreferrer"><img src="assets/asset_005.png" alt="UCI logo" /><span class="company-name">uci</span></a>
+        <a class="daily-link" href="https://jobs.hoag.org/en/sites/CX_1/jobs?keyword=clinical+nurse+I&amp;lastSelectedFacet=CATEGORIES&amp;mode=location&amp;selectedCategoriesFacet=300000012021263&amp;sortBy=POSTING_DATES_DESC" target="_blank" rel="noopener noreferrer"><img src="assets/asset_006.png" alt="Hoag logo" /><span class="company-name">hoag</span></a>
+        <a class="daily-link" href="https://careers.memorialcare.org/search-jobs/new%20grad/743/1" target="_blank" rel="noopener noreferrer"><img src="assets/asset_007.png" alt="MemorialCare logo" /><span class="company-name">memorialcare</span></a>
+              <a class="daily-link" href="https://allnurses.com/nurse-residency-programs-c283/" target="_blank" rel="noopener noreferrer"><img src="assets/asset_008.png" alt="allnurses icon" /><span class="company-name">allnurses</span></a>
+</nav>
+      </div>
+      <div class="cycling-photo-frame">
+  <img id="cycling-photo" class="site-quote-image" src="assets/asset_009.png" alt="cycling image" />
+</div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ AFFIRMATIONS SECTION ============ -->
+    <section class="section home-panel-section" id="affirmations-section">
+      <h2 class="section-title">main character reminders :)</h2>
+      <div class="section-body affirmation-list">
+        <p>i LOVE LOVE LOVE myself.</p>
+        <p>i speak kindly to myself and my body.</p>
+        <p>i take care of my body by fueling it, moving it, and loving it.</p>
+        <p>other people’s opinions are not my problem.</p>
+        <p>everything works out for me.</p>
+        <p>everything meant for me finds its way to me.</p>
+        <p>i achieve everything i set my mind to.</p>
+        <p>i speak up for myself because i deserve to be heard.</p>
+        <p>i respect my limits.</p>
+        <p>i stay open-minded and flexible.</p>
+        <p>i take action instead of chasing perfection.<br>1% better every day.</p>
+      </div>
+    </section>
+
+    <!-- ============ 2026 SECTION ============ -->
+    <section class="section home-panel-section" id="middle-section">
+      <h2 class="section-title">2026</h2>
+      <div class="section-body goals-list">
+        <div class="goal-row">
+          <span class="goal-heart">♡</span>
+          <span class="goal-text">25 podcasts</span>
+          <code>9/25</code>
+        </div>
+        <div class="goal-row">
+          <span class="goal-heart">♡</span>
+          <span class="goal-text">3 books</span>
+          <code>1/3</code>
+        </div>
+        <div class="goal-row">
+          <span class="goal-heart">♡</span>
+          <span class="goal-text">150 lb on lat pulldowns</span>
+          <code>90/150</code>
+        </div>
+        <div class="goal-row">
+          <span class="goal-heart">♡</span>
+          <span class="goal-text">5 pull ups</span>
+          <code>2/5</code>
+        </div>
+        <div class="goal-row">
+          <span class="goal-heart">♡</span>
+          <span class="goal-text">roth ira maxed</span>
+          <code>0/7k</code>
+        </div>
+      </div>
+      <img class="goals-image" src="assets/asset_010.png" alt="2026 vision board">
+    </section>
+
+    <!-- ============ CAFE DIARY SECTION ============ -->
+    <section class="section heart-panel-section" id="extra-section">
+      <h2 class="section-title">cafe diary</h2>
+      <div class="section-body sidequest-list">
+        <div class="sidequest-columns">
+          <div class="sidequest-column">
+            <p class="sidequest-list-title">tried</p>
+            <div class="sidequest-items">
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/airoma-cafe-fountain-valley" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">airoma</a></span><span class="sidequest-rating">5/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/ayer-coffee-tustin" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">ayer</a></span><span class="sidequest-rating">5/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span>da vien</span><span class="sidequest-rating">3/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span>febe coffee</span><span class="sidequest-rating">2/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span>chagee</span><span class="sidequest-rating">1.5/5</span></div>
+            </div>
+          </div>
+
+          <div class="sidequest-divider" aria-hidden="true"></div>
+
+          <div class="sidequest-column">
+            <p class="sidequest-list-title">pending</p>
+            <div class="sidequest-items">
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/tatys-specialty-coffee-and-tea-westminster" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">taty's</a></span><span class="sidequest-rating">/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/gremlin-garage-costa-mesa" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">gremlin garage</a></span><span class="sidequest-rating">/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/phin-smith-garden-grove" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">phin smith</a></span><span class="sidequest-rating">/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/vacancy-coffee-newport-beach-2" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">vacancy coffee</a></span><span class="sidequest-rating">/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/brew-story-huntington-beach" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">brew story</a></span><span class="sidequest-rating">/5</span></div>
+              <div class="sidequest-row"><span>♡</span><span><a href="https://www.yelp.com/biz/stereoscope-coffee-company-buena-park" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font: inherit;">stereoscope</a></span><span class="sidequest-rating">/5</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TOUCHING GRASS SECTION ============ -->
+    <section class="section heart-panel-section" id="grass-section">
+      <h2 class="section-title">touching grass</h2>
+      <div class="section-body touching-grass-body">
+        <div class="grass-link-row">oc hikes (<a href="https://hikingguy.com/best-hikes-orange-county/" target="_blank" rel="noopener noreferrer" class="grass-click-link">click me! ꉂ(˵˃ ᗜ ˂˵)</a>)</div>
+
+        <div class="sidequest-list grass-list">
+          <div class="grass-difficulty-group">
+            <p class="sidequest-list-title">easy</p>
+            <div class="sidequest-items">
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note="easy, pretty, peaceful, staple ofc for running! :333 plus its close by :) and it has a super cute park with geese LOL&#10;&#10;**rating**: 7/10">redwood grove (carbon canyon)</strong> - <span class="hike-metric">1.5 mi, 50 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note="• parked in a town center ~15min away to avoid the parking fee&#10;• 0 scenery, only dirt and brown shi idk worth it for the steps but otherwise no.&#10;&#10;**rating**: 3/10">dipping cave (aliso &amp; wood canyons)</strong> - <span class="hike-metric">5 mi, 400 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">pfeiffer falls (big sur)</strong> - <span class="hike-metric">1.6 mi, 436 ft</span></span></div>
+            </div>
+          </div>
+
+          <div class="grass-section-divider" aria-hidden="true"></div>
+
+          <div class="grass-difficulty-group">
+            <p class="sidequest-list-title">moderate</p>
+            <div class="sidequest-items">
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note="good elevation but 0 scenery cuz it was all burnt down. on the way up all i saw was the toll road to irvine LOL and the top was just some random park.. on the way down there was a cute farm / barn tho!&#10;&#10;**rating**: 4/10">boomer canyon (irvine)</strong> - <span class="hike-metric">5.5 mi, 889 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note-size="large" data-note="• first 2.5 miles is pretty boring … just flat as fuck and just dust and dirt and people be passing by on a truck smh smh but BUT! the rocks are REALLLY FUN and climbing it and figuring out the path is really fun:) not tiring at all actually, since idk it’s not constant incline.&#10;• no waterfall there tho:( but still rlly rlly pretty!!!!!!! i think just no waterfall cuz summer (?)&#10;• ate a yummy protein bar at the &quot;waterfall&quot; area #peak&#10;• way back was so dreadful i was tired but i got #dutchbros afterwards so i was happy&#10;• less heart palpitations than boomer canyon LOL&#10;&#10;**rating**: 7/10">black star canyon (cleveland national forest)</strong> - <span class="hike-metric">7 mi, 830 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">bridge to nowhere</strong> - <span class="hike-metric">9.7 mi, 1,240 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">bane canyon (chino hills state park)</strong> - <span class="hike-metric">8 mi, 1400 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">el moro canyon (crystal cove)</strong> - <span class="hike-metric">4.9 mi, 810 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">the sinks (lime stone national park)</strong> - <span class="hike-metric">7.7 mi, 718 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">san mateo peak (cleveland national forest)</strong> - <span class="hike-metric">4.6 mi, 1100 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">creamery meadow, ridge, panorama, bluffs (andre molar state park)</strong> - <span class="hike-metric">8 mi, 1443 ft</span></span></div>
+            </div>
+          </div>
+
+          <div class="grass-section-divider" aria-hidden="true"></div>
+
+          <div class="grass-difficulty-group">
+            <p class="sidequest-list-title">hard</p>
+            <div class="sidequest-items">
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note-size="fit" data-note="• a lot of dirt a lot of elevation no friction grip at all and i got sunburnt but the view is ok i guess u can see the highway leading to laguna beach&#10;• parking was bunnnnns .. had to park in some rando laguna beach community and the walk from there to the hike was like idk 15 min?&#10;• peak highlight = ate an edible and ate cpk afterwards @ spectrum&#10;&#10;**rating**: 6/10">top of the world (laguna)</strong> - <span class="hike-metric">2.4 mi, 890 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check checked-box">☑︎</span><span><strong class="hike-name" tabindex="0" data-note-size="large" data-note="• WOW that shit was hard .. i think my hr was elevated like ENTIRE time. its like a CONSISTENT incline for 9 miles straight ish... repeated rolling hills and canyon sections. but 100% would do again! barely prepped for this one and kinda just ate rice krispies and candy and felt vv happy and good LOL slay&#10;• parked in newport beach town center and walked to the hike and lowkey got caught be security / warned... but no ticket or toll so yippeee&#10;&#10;**rating**: 7.5/10">crystal cove perimeter loop</strong> - <span class="hike-metric">9.5 mi, 1,397 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">saddleback mountain (cleveland national forest)</strong> - <span class="hike-metric">15.8 mi, 4200 ft</span></span></div>
+              <div class="sidequest-row hike-row"><span class="hike-check empty-box">☐</span><span><strong class="hike-name" tabindex="0" data-note="">clouds rest (yosemite national park)</strong> - <span class="hike-metric">12.4 mi, 3116 ft</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOOKSHELF SECTION ============ -->
+    <section class="section heart-panel-section" id="bookshelf-section">
+      <h2 class="section-title">currently reading</h2>
+      <div class="justin-bookshelf-card" aria-label="currently reading bookshelf">
+        <div class="justin-books">
+          <div class="justin-book-preview-group">
+            <div class="justin-book justin-book-finish" title="The Finish Line" tabindex="0"><span>The Finish Line</span></div>
+            <div class="justin-preview" aria-label="The Finish Line preview">
+              <img class="justin-preview-cover" src="assets/asset_011.png" alt="The Finish Line cover preview">
+              <div class="justin-preview-meta">
+                <div class="justin-preview-title">The Finish Line</div>
+                <div class="justin-preview-author">Kate Stewart</div>
+              </div>
+            </div>
+          </div>
+          <div class="justin-book-preview-group">
+            <div class="justin-book justin-book-karamazov" title="The Brothers Karamazov" tabindex="0"><span>The Brothers Karamazov</span></div>
+            <div class="justin-preview" aria-label="The Brothers Karamazov preview">
+              <img class="justin-preview-cover" src="assets/asset_012.png" alt="The Brothers Karamazov cover preview">
+              <div class="justin-preview-meta">
+                <div class="justin-preview-title">The Brothers Karamazov</div>
+                <div class="justin-preview-author">Fyodor Dostoevsky</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="justin-shelf-lines" aria-hidden="true">
+          <div class="justin-shelf-line"></div>
+          <div class="justin-shelf-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SPOTIFY SECTION ============ -->
+    <section class="section home-panel-section" id="music-section">
+      <h2 class="section-title">goated breakcore</h2>
+
+      <div class="spotify-frame">
+        <iframe
+          title="Spotify playlist"
+          src="https://open.spotify.com/embed/playlist/43J76evZZwnCS9GKNm0HIU?utm_source=generator&amp;theme=0"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+  </main>
+
+
+  <div class="hike-sticky-tooltip" id="hike-sticky-tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>meowmeow&reg;</p>
+  </footer>
+
+  </div> <!-- end .site-card -->
+
+  <!-- small inline scripts for tabs + photo cycling -->
+
+  <script>
+    /* Cute standalone tabs */
+    (function () {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      if (!tabButtons.length) return;
+
+      const setActiveTab = (activeButton) => {
+        tabButtons.forEach((tab) => {
+          const isActive = tab === activeButton;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        const activeTab = activeButton.id.replace('-tab', '');
+        document.body.classList.toggle('show-home', activeTab === 'home');
+        document.body.classList.toggle('show-heart', activeTab === 'heart');
+        document.body.classList.toggle('show-rmn', activeTab === 'rmn');
+        document.body.classList.toggle('show-cat', activeTab === 'cat');
+      };
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => setActiveTab(button));
+      });
+
+      setActiveTab(document.querySelector('.tab-button.is-active') || tabButtons[0]);
+    })();
+  </script>
+
+  <script>
+    (function () {
+      const imageEl = document.getElementById('cycling-photo');
+      if (!imageEl) return;
+
+      imageEl.setAttribute('role', 'link');
+      imageEl.setAttribute('tabindex', '0');
+      imageEl.setAttribute('title', 'open pinterest board');
+      imageEl.addEventListener('click', function () {
+        window.open('https://www.pinterest.com/cryingintokyo/i-can-and-will-make-it/', '_blank', 'noopener,noreferrer');
+      });
+      imageEl.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          window.open('https://www.pinterest.com/cryingintokyo/i-can-and-will-make-it/', '_blank', 'noopener,noreferrer');
+        }
+      });
+
+      const images = [
+        imageEl.src,
+        'assets/asset_013.png'
+,
+        'assets/asset_014.png',
+        'assets/asset_015.png'
+      ];
+
+      let currentIndex = 0;
+      const intervalMs = 15000;
+      const transitionMs = 700;
+
+      setInterval(function () {
+        imageEl.classList.add('slide-out-up');
+
+        setTimeout(function () {
+          currentIndex = (currentIndex + 1) % images.length;
+          imageEl.src = images[currentIndex];
+
+          imageEl.classList.remove('slide-out-up');
+          imageEl.classList.add('slide-in-from-bottom');
+
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              imageEl.classList.remove('slide-in-from-bottom');
+            });
+          });
+        }, transitionMs);
+      }, intervalMs);
+    })();
+  </script>
+
+<script>
+  /* Cozy meow-town mini game — original procedural canvas artwork. */
+  (function () {
+    const canvas = document.getElementById('cat-town-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const shell = document.getElementById('cat-game-shell');
+    const dialog = document.getElementById('cat-town-dialog');
+    const dialogName = document.getElementById('cat-town-dialog-name');
+    const dialogText = document.getElementById('cat-town-dialog-text');
+    const dialogHint = document.getElementById('cat-town-dialog-hint');
+    const dialogClose = document.getElementById('cat-town-dialog-close');
+    const placeLabel = document.getElementById('cat-town-place');
+    const timeLabel = document.getElementById('cat-town-time');
+    const critterCounter = document.getElementById('cat-town-counter');
+    const actionButton = document.getElementById('cat-town-action');
+    const meowButton = document.getElementById('cat-town-meow-button');
+    const soundButton = document.getElementById('cat-town-sound-button');
+    const volumeControl = document.getElementById('cat-town-volume-control');
+    const volumeSlider = document.getElementById('cat-town-volume-slider');
+
+    const WORLD = { width: 2100, height: 1350 };
+    const keys = Object.create(null);
+    const touchDirections = new Set();
+    const visited = new Set();
+
+    const player = {
+      x: 1050,
+      y: 790,
+      radius: 24,
+      speed: 235,
+      facing: 'down',
+      walking: false,
+      phase: 0,
+      jumping: false,
+      jumpHeight: 0,
+      jumpVelocity: 0
+    };
+
+    const characterSprites = {
+      front: new Image(),
+      back: new Image(),
+      frontBody: new Image(),
+      frontLegL: new Image(),
+      frontLegR: new Image(),
+      backBody: new Image(),
+      backLegL: new Image(),
+      backLegR: new Image()
+    };
+    characterSprites.front.src = 'assets/asset_016.png';
+    characterSprites.back.src = 'assets/asset_017.png';
+    characterSprites.frontBody.src = 'assets/asset_018.png';
+    characterSprites.frontLegL.src = 'assets/asset_019.png';
+    characterSprites.frontLegR.src = 'assets/asset_020.png';
+    characterSprites.backBody.src = 'assets/asset_021.png';
+    characterSprites.backLegL.src = 'assets/asset_022.png';
+    characterSprites.backLegR.src = 'assets/asset_023.png';
+    const characterSpritePivots = {
+      front: { legL: { x: 114, y: 360 }, legR: { x: 170, y: 360 } },
+      back: { legL: { x: 102, y: 352 }, legR: { x: 160, y: 352 } }
+    };
+
+    const camera = { x: 0, y: 0 };
+    const projection = {
+      skewX: 0,
+      skewY: 0,
+      scaleY: 0.88
+    };
+    const moveTarget = {
+      active: false,
+      x: 0,
+      y: 0
+    };
+    let cssWidth = 960;
+    let cssHeight = 600;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let lastTime = performance.now();
+    let nearby = null;
+    let nearbyCritter = null;
+    let nearbyForestFirefly = null;
+    let nearbyPrompt = null;
+    let pausedByDialog = false;
+    let statusMessage = '';
+    let statusUntil = 0;
+    const captureBursts = [];
+
+    // Wish-fountain coin toss animation. Press T while standing near the fountain.
+    const FOUNTAIN_POINT = { x: 1040, y: 595, waterY: 644, interactionRadius: 185 };
+    const coinToss = {
+      active: false,
+      startTime: 0,
+      duration: 900,
+      fromX: 0,
+      fromY: 0,
+      toX: FOUNTAIN_POINT.x,
+      toY: FOUNTAIN_POINT.waterY
+    };
+    let fountainDingAudioContext = null;
+    let fountainWishPrimed = false;
+
+    const critters = [
+      {
+        id: 'butterfly-1', type: 'butterfly', name: 'pink butterfly',
+        x: 770, y: 790, rangeX: 42, rangeY: 24, speedX: 0.0010, speedY: 0.0014,
+        phase: 0.2, color: '#ffd2e5', radius: 60, captured: false, currentX: 770, currentY: 790
+      },
+      {
+        id: 'butterfly-2', type: 'butterfly', name: 'sunny butterfly',
+        x: 1340, y: 620, rangeX: 35, rangeY: 20, speedX: 0.0012, speedY: 0.0015,
+        phase: 1.8, color: '#fff0a7', radius: 60, captured: false, currentX: 1340, currentY: 620
+      },
+      {
+        id: 'bee-1', type: 'bee', name: 'bumblebee',
+        x: 585, y: 955, rangeX: 34, rangeY: 18, speedX: 0.0016, speedY: 0.0019,
+        phase: 0.7, color: '#ffd765', radius: 58, captured: false, currentX: 585, currentY: 955
+      },
+      {
+        id: 'bee-2', type: 'bee', name: 'honey bee',
+        x: 1465, y: 950, rangeX: 38, rangeY: 16, speedX: 0.0015, speedY: 0.0017,
+        phase: 2.4, color: '#ffe38d', radius: 58, captured: false, currentX: 1465, currentY: 950
+      }
+    ];
+
+    const critterSpawnPoints = [
+      { x: 700, y: 470 }, { x: 790, y: 820 }, { x: 1325, y: 820 },
+      { x: 1375, y: 590 }, { x: 1515, y: 650 }, { x: 1435, y: 1090 },
+      { x: 660, y: 1040 }, { x: 455, y: 815 }, { x: 1190, y: 850 },
+      { x: 1790, y: 650 }, { x: 1265, y: 355 }, { x: 860, y: 1025 }
+    ];
+
+    const critterVariants = {
+      butterfly: [
+        { name: 'pink butterfly', color: '#ffd2e5' },
+        { name: 'sunny butterfly', color: '#fff0a7' },
+        { name: 'lavender butterfly', color: '#d8d0ff' },
+        { name: 'peach butterfly', color: '#ffd0b8' }
+      ],
+      bee: [
+        { name: 'bumblebee', color: '#ffd765' },
+        { name: 'honey bee', color: '#ffe38d' },
+        { name: 'tiny bee', color: '#ffecaa' }
+      ]
+    };
+
+    let caughtCritterCount = 0;
+
+    function updateCritterCounter() {
+      if (!critterCounter) return;
+      critterCounter.textContent = `critters caught: ${caughtCritterCount}`;
+    }
+
+    // Soft cozy capture sound for every critter or firefly catch.
+    // It combines a tiny warm puff with a gentle rising wooden-bell melody.
+    let catchAudioContext = null;
+
+    function playCuteCatchSound() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      try {
+        if (!catchAudioContext) catchAudioContext = new AudioContextClass();
+        if (catchAudioContext.state === 'suspended') catchAudioContext.resume();
+
+        const audio = catchAudioContext;
+        const now = audio.currentTime;
+        const master = audio.createGain();
+        const compressor = audio.createDynamicsCompressor();
+        const warmth = audio.createBiquadFilter();
+
+        warmth.type = 'lowpass';
+        warmth.frequency.setValueAtTime(2600, now);
+        warmth.Q.setValueAtTime(0.7, now);
+
+        master.gain.setValueAtTime(0.0001, now);
+        master.gain.exponentialRampToValueAtTime(0.72, now + 0.018);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + 0.72);
+        compressor.threshold.setValueAtTime(-12, now);
+        compressor.knee.setValueAtTime(12, now);
+        compressor.ratio.setValueAtTime(5, now);
+        compressor.attack.setValueAtTime(0.003, now);
+        compressor.release.setValueAtTime(0.12, now);
+        warmth.connect(master);
+        master.connect(compressor);
+        compressor.connect(audio.destination);
+
+        // A quiet, soft capture puff.
+        const puffLength = Math.floor(audio.sampleRate * 0.12);
+        const puffBuffer = audio.createBuffer(1, puffLength, audio.sampleRate);
+        const puffData = puffBuffer.getChannelData(0);
+        for (let i = 0; i < puffLength; i++) {
+          const fade = 1 - i / puffLength;
+          puffData[i] = (Math.random() * 2 - 1) * fade * fade;
+        }
+
+        const puff = audio.createBufferSource();
+        const puffFilter = audio.createBiquadFilter();
+        const puffGain = audio.createGain();
+        puff.buffer = puffBuffer;
+        puffFilter.type = 'lowpass';
+        puffFilter.frequency.setValueAtTime(900, now);
+        puffGain.gain.setValueAtTime(0.24, now);
+        puffGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+        puff.connect(puffFilter);
+        puffFilter.connect(puffGain);
+        puffGain.connect(master);
+        puff.start(now);
+
+        // Warm, rounded notes instead of a sharp high-pitched chime.
+        const notes = [392.0, 523.25, 659.25, 783.99]; // G4, C5, E5, G5
+        notes.forEach((frequency, index) => {
+          const start = now + 0.035 + index * 0.075;
+          const oscillator = audio.createOscillator();
+          const noteGain = audio.createGain();
+
+          oscillator.type = index < 2 ? 'triangle' : 'sine';
+          oscillator.frequency.setValueAtTime(frequency * 0.985, start);
+          oscillator.frequency.exponentialRampToValueAtTime(frequency, start + 0.045);
+
+          noteGain.gain.setValueAtTime(0.0001, start);
+          noteGain.gain.exponentialRampToValueAtTime(0.46 - index * 0.045, start + 0.014);
+          noteGain.gain.exponentialRampToValueAtTime(0.0001, start + 0.34 + index * 0.025);
+
+          oscillator.connect(noteGain);
+          noteGain.connect(warmth);
+          oscillator.start(start);
+          oscillator.stop(start + 0.39 + index * 0.025);
+        });
+      } catch (error) {
+        // Keep gameplay working even if a browser blocks audio unexpectedly.
+      }
+    }
+
+
+    // Tiny cozy jump sound: a soft rounded bounce with a gentle sparkle tail.
+    let jumpAudioContext = null;
+
+    function playCuteJumpSound() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      try {
+        if (!jumpAudioContext) jumpAudioContext = new AudioContextClass();
+        if (jumpAudioContext.state === 'suspended') jumpAudioContext.resume();
+
+        const audio = jumpAudioContext;
+        const now = audio.currentTime;
+        const master = audio.createGain();
+        const compressor = audio.createDynamicsCompressor();
+        const softener = audio.createBiquadFilter();
+
+        softener.type = 'lowpass';
+        softener.frequency.setValueAtTime(2400, now);
+        softener.Q.setValueAtTime(0.55, now);
+
+        master.gain.setValueAtTime(0.0001, now);
+        master.gain.exponentialRampToValueAtTime(0.82, now + 0.012);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
+        compressor.threshold.setValueAtTime(-10, now);
+        compressor.knee.setValueAtTime(10, now);
+        compressor.ratio.setValueAtTime(5, now);
+        compressor.attack.setValueAtTime(0.002, now);
+        compressor.release.setValueAtTime(0.10, now);
+        softener.connect(master);
+        master.connect(compressor);
+        compressor.connect(audio.destination);
+
+        // Main pillowy "boop" that rises with the jump.
+        const bounce = audio.createOscillator();
+        const bounceGain = audio.createGain();
+        bounce.type = 'triangle';
+        bounce.frequency.setValueAtTime(235, now);
+        bounce.frequency.exponentialRampToValueAtTime(455, now + 0.16);
+        bounce.frequency.exponentialRampToValueAtTime(390, now + 0.25);
+        bounceGain.gain.setValueAtTime(0.0001, now);
+        bounceGain.gain.exponentialRampToValueAtTime(0.58, now + 0.014);
+        bounceGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.27);
+        bounce.connect(bounceGain);
+        bounceGain.connect(softener);
+        bounce.start(now);
+        bounce.stop(now + 0.29);
+
+        // Very soft high note for a cute sparkle finish.
+        const sparkle = audio.createOscillator();
+        const sparkleGain = audio.createGain();
+        sparkle.type = 'sine';
+        sparkle.frequency.setValueAtTime(690, now + 0.105);
+        sparkle.frequency.exponentialRampToValueAtTime(820, now + 0.20);
+        sparkleGain.gain.setValueAtTime(0.0001, now + 0.095);
+        sparkleGain.gain.exponentialRampToValueAtTime(0.20, now + 0.12);
+        sparkleGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.30);
+        sparkle.connect(sparkleGain);
+        sparkleGain.connect(softener);
+        sparkle.start(now + 0.095);
+        sparkle.stop(now + 0.31);
+      } catch (error) {
+        // Jumping should still work even when browser audio is unavailable.
+      }
+    }
+
+    // Cat-meow samples cut from the uploaded MP3. Each paw click uses a
+    // shuffled clip, so every meow is different before the set repeats.
+    const CAT_MEOW_CLIPS = ["assets/asset_024.mp3","assets/asset_025.mp3","assets/asset_026.mp3","assets/asset_027.mp3","assets/asset_028.mp3","assets/asset_029.mp3","assets/asset_030.mp3","assets/asset_031.mp3","assets/asset_032.mp3","assets/asset_033.mp3","assets/asset_034.mp3","assets/asset_035.mp3","assets/asset_036.mp3","assets/asset_037.mp3","assets/asset_038.mp3","assets/asset_039.mp3","assets/asset_040.mp3","assets/asset_041.mp3","assets/asset_042.mp3","assets/asset_043.mp3","assets/asset_044.mp3","assets/asset_045.mp3","assets/asset_046.mp3","assets/asset_047.mp3"];
+    // Keep the random cat meows soft so they do not overpower the game.
+    const CAT_MEOW_VOLUME = 0.18;
+    const catMeowPlayers = CAT_MEOW_CLIPS.map(source => {
+      const meow = new Audio(source);
+      meow.preload = 'auto';
+      meow.volume = CAT_MEOW_VOLUME;
+      return meow;
+    });
+    let meowShuffleBag = [];
+    let activeCatMeow = null;
+    let lastCatMeowIndex = -1;
+
+    function refillMeowShuffleBag() {
+      meowShuffleBag = catMeowPlayers.map((_, index) => index);
+      for (let i = meowShuffleBag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [meowShuffleBag[i], meowShuffleBag[j]] = [meowShuffleBag[j], meowShuffleBag[i]];
+      }
+
+      // Prevent the first sound in a new cycle from matching the last one heard.
+      if (
+        meowShuffleBag.length > 1 &&
+        meowShuffleBag[meowShuffleBag.length - 1] === lastCatMeowIndex
+      ) {
+        [meowShuffleBag[0], meowShuffleBag[meowShuffleBag.length - 1]] =
+          [meowShuffleBag[meowShuffleBag.length - 1], meowShuffleBag[0]];
+      }
+    }
+
+    function playCuteCatPurr() {
+      if (!catMeowPlayers.length) return;
+      if (!meowShuffleBag.length) refillMeowShuffleBag();
+
+      const index = meowShuffleBag.pop();
+      const meow = catMeowPlayers[index];
+
+      // A new paw click immediately switches to the next different meow.
+      if (activeCatMeow && activeCatMeow !== meow) {
+        activeCatMeow.pause();
+        activeCatMeow.currentTime = 0;
+      }
+
+      lastCatMeowIndex = index;
+      activeCatMeow = meow;
+      meow.currentTime = 0;
+      meow.volume = CAT_MEOW_VOLUME;
+      meow.play().catch(() => {
+        // Keep the paw button and speech bubble working if playback is blocked.
+      });
+      meow.addEventListener('ended', () => {
+        if (activeCatMeow === meow) activeCatMeow = null;
+      }, { once: true });
+    }
+
+    function respawnCritter(critter) {
+      const activeCritters = critters.filter(other => other !== critter && !other.captured);
+      const goodPoints = critterSpawnPoints.filter(point => {
+        const farFromPlayer = Math.hypot(point.x - player.x, point.y - player.y) > 300;
+        const farFromOthers = activeCritters.every(other => (
+          Math.hypot(point.x - other.currentX, point.y - other.currentY) > 170
+        ));
+        return farFromPlayer && farFromOthers;
+      });
+
+      const choices = goodPoints.length ? goodPoints : critterSpawnPoints;
+      const point = choices[Math.floor(Math.random() * choices.length)];
+      const type = Math.random() < 0.5 ? 'butterfly' : 'bee';
+      const variants = critterVariants[type];
+      const variant = variants[Math.floor(Math.random() * variants.length)];
+
+      critter.type = type;
+      critter.name = variant.name;
+      critter.color = variant.color;
+      critter.x = point.x + (Math.random() - 0.5) * 50;
+      critter.y = point.y + (Math.random() - 0.5) * 36;
+      critter.rangeX = 30 + Math.random() * 18;
+      critter.rangeY = 14 + Math.random() * 12;
+      critter.speedX = (type === 'bee' ? 0.00135 : 0.00095) + Math.random() * 0.00045;
+      critter.speedY = (type === 'bee' ? 0.00155 : 0.00120) + Math.random() * 0.00045;
+      critter.phase = Math.random() * Math.PI * 2;
+      critter.radius = type === 'bee' ? 58 : 60;
+      critter.currentX = critter.x;
+      critter.currentY = critter.y;
+      critter.captured = false;
+    }
+
+    updateCritterCounter();
+
+    const landmarks = [
+      {
+        id: 'cafe', x: 425, y: 440, radius: 120,
+        name: 'matcha cafe',
+        text: '#rmn #ifykyk.\n\nmatcha is lowkey performative and overrated butttt there are very good ones.\n\nsee cafe diary for recs! only 5/5 places apply tho.'
+      },
+      {
+        id: 'library', x: 1570, y: 405, radius: 125,
+        name: 'tiny library',
+        text: 'ahhhh if it isnt for the library of books that took renee ages to read LOL cuz she was just always "too busy". jkjkjk\n\nhere youll find a mix of crazy russian fiction mixed with romcom borderline soft porn books that honestly might as well be cough cough... #gooner jk...\n\nand the swaggy swag literature reviews on neurophysiology :3\n\nenter at ur own risk..'
+      },
+      {
+        id: 'clinic', x: 1710, y: 930, radius: 175,
+        name: 'little nurse nook >_<',
+        text: 'find all the dreaded care plans, tests she aced, clinical memories, and little victories that got her here.\n\nnext adventure: find a cutesie nursie job! ♡'
+      },
+      {
+        id: 'fountain', x: 1040, y: 600, radius: 145,
+        name: 'wish fountain',
+        text: 'you make a tiny wish: 1% better every day.\n\na pink sparkle lands on your nose.',
+        html: 'you make a tiny wish: <em>1% better every day.</em><br><br>a pink sparkle lands on your nose.'
+      },
+      {
+        id: 'garden', x: 545, y: 905, radius: 165,
+        name: 'touching grass',
+        text: 'a soft path winds away from the sign. keep following it until you reach the glowing circle.'
+      }
+    ];
+
+    const townObstacles = [
+      // Building barriers hug only the visible lower body of each cottage.
+      { x: 270, y: 338, w: 315, h: 162 },       // matcha cafe
+      { x: 1435, y: 282, w: 320, h: 203 },      // little library
+      { x: 1575, y: 862, w: 305, h: 183 },      // little nurse nook
+
+      // Elliptical barrier hugs only the wish-fountain basin.
+      { shape: 'ellipse', x: 1040, y: 653, rx: 105, ry: 48 },
+
+      // River collision, leaving a narrow vertical crossing only where the bridge sits.
+      { x: 0, y: 1188, w: 108, h: 118 },
+      { x: 280, y: 1188, w: 1820, h: 118 },
+      { x: 40, y: 0, w: 150, h: WORLD.height },
+      { x: 1910, y: 0, w: 150, h: WORLD.height }
+    ];
+
+    const forestObstacles = [
+      { x: 40, y: 0, w: 150, h: WORLD.height },
+      { x: 1910, y: 0, w: 150, h: WORLD.height }
+    ];
+
+    const townWarp = { x: 184, y: 1298, radius: 90 };
+    const forestReturnWarp = { x: 330, y: 920, radius: 90 };
+    const forestFireflies = Array.from({ length: 26 }, (_, i) => ({
+      id: `forest-firefly-${i + 1}`,
+      x: 240 + ((i * 79) % 1520),
+      y: 220 + ((i * 131) % 780),
+      sway: i * 0.63,
+      size: 2.1 + (i % 3) * 0.85,
+      glow: 12 + (i % 4) * 5,
+      radius: 64,
+      currentX: 240 + ((i * 79) % 1520),
+      currentY: 220 + ((i * 131) % 780),
+      captured: false
+    }));
+
+    function getForestFireflyPosition(firefly, time) {
+      return {
+        x: firefly.x + Math.sin(time * 0.00075 + firefly.sway) * 24,
+        y: firefly.y + Math.cos(time * 0.001 + firefly.sway * 1.4) * 15
+      };
+    }
+
+    function respawnForestFirefly(firefly) {
+      let x = firefly.x;
+      let y = firefly.y;
+      for (let tries = 0; tries < 20; tries++) {
+        const candidateX = 260 + Math.random() * 1540;
+        const candidateY = 250 + Math.random() * 710;
+        if (Math.hypot(candidateX - player.x, candidateY - player.y) > 260) {
+          x = candidateX;
+          y = candidateY;
+          break;
+        }
+      }
+      firefly.x = x;
+      firefly.y = y;
+      firefly.sway = Math.random() * Math.PI * 2;
+      firefly.currentX = x;
+      firefly.currentY = y;
+      firefly.captured = false;
+    }
+    let currentWorld = 'town';
+    let warpCooldownUntil = 0;
+    let meowBubbleUntil = 0;
+
+    // The game clock always follows Southern California's real Pacific time,
+    // including the automatic PST/PDT daylight-saving change. Sunrise and
+    // sunset are calculated locally for Yorba Linda / central Orange County,
+    // so this remains fully self-contained and works without a weather API.
+    const PACIFIC_TIME_ZONE = 'America/Los_Angeles';
+    const GAME_LATITUDE = 33.8886;
+    const GAME_LONGITUDE = -117.8131;
+    const SUN_TRANSITION_MINUTES = 24;
+    const pacificTimeFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: PACIFIC_TIME_ZONE,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    const pacificPartsFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: PACIFIC_TIME_ZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23'
+    });
+    const dayNightState = {
+      lastUpdateMs: 0,
+      dateKey: '',
+      sunriseMinutes: 360,
+      sunsetMinutes: 1200,
+      currentMinutes: 720,
+      nightFactor: 0,
+      isNight: false
+    };
+
+    function getZonedParts(date) {
+      const parts = {};
+      pacificPartsFormatter.formatToParts(date).forEach(part => {
+        if (part.type !== 'literal') parts[part.type] = Number(part.value);
+      });
+      return parts;
+    }
+
+    function getTimeZoneOffsetMinutes(date, timeZone) {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone,
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hourCycle: 'h23'
+      });
+      const parts = {};
+      formatter.formatToParts(date).forEach(part => {
+        if (part.type !== 'literal') parts[part.type] = Number(part.value);
+      });
+      const asUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+      return (asUtc - date.getTime()) / 60000;
+    }
+
+    function degreesToRadians(value) { return value * Math.PI / 180; }
+    function radiansToDegrees(value) { return value * 180 / Math.PI; }
+    function normalizeDegrees(value) { return ((value % 360) + 360) % 360; }
+
+    function calculateSunriseSunsetMinutes(year, month, day) {
+      // NOAA-style solar calculation. Returned values are minutes after local
+      // Pacific midnight for the selected calendar day.
+      let y = year;
+      let m = month;
+      if (m <= 2) { y -= 1; m += 12; }
+      const a = Math.floor(y / 100);
+      const b = 2 - a + Math.floor(a / 4);
+      const julianDay = Math.floor(365.25 * (y + 4716)) +
+        Math.floor(30.6001 * (m + 1)) + day + b - 1524.5;
+      const t = (julianDay - 2451545.0) / 36525;
+
+      const geomMeanLongSun = normalizeDegrees(280.46646 + t * (36000.76983 + t * 0.0003032));
+      const geomMeanAnomalySun = 357.52911 + t * (35999.05029 - 0.0001537 * t);
+      const eccentricityEarthOrbit = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+      const anomalyRadians = degreesToRadians(geomMeanAnomalySun);
+      const sunEquationOfCenter =
+        Math.sin(anomalyRadians) * (1.914602 - t * (0.004817 + 0.000014 * t)) +
+        Math.sin(2 * anomalyRadians) * (0.019993 - 0.000101 * t) +
+        Math.sin(3 * anomalyRadians) * 0.000289;
+      const sunTrueLongitude = geomMeanLongSun + sunEquationOfCenter;
+      const omega = 125.04 - 1934.136 * t;
+      const sunApparentLongitude = sunTrueLongitude - 0.00569 - 0.00478 * Math.sin(degreesToRadians(omega));
+
+      const seconds = 21.448 - t * (46.815 + t * (0.00059 - t * 0.001813));
+      const meanObliquity = 23 + (26 + seconds / 60) / 60;
+      const obliquityCorrection = meanObliquity + 0.00256 * Math.cos(degreesToRadians(omega));
+      const obliquityRadians = degreesToRadians(obliquityCorrection);
+      const apparentLongitudeRadians = degreesToRadians(sunApparentLongitude);
+      const solarDeclination = Math.asin(Math.sin(obliquityRadians) * Math.sin(apparentLongitudeRadians));
+
+      const yTerm = Math.tan(obliquityRadians / 2) ** 2;
+      const longRadians = degreesToRadians(geomMeanLongSun);
+      const equationOfTime = 4 * radiansToDegrees(
+        yTerm * Math.sin(2 * longRadians) -
+        2 * eccentricityEarthOrbit * Math.sin(anomalyRadians) +
+        4 * eccentricityEarthOrbit * yTerm * Math.sin(anomalyRadians) * Math.cos(2 * longRadians) -
+        0.5 * yTerm * yTerm * Math.sin(4 * longRadians) -
+        1.25 * eccentricityEarthOrbit * eccentricityEarthOrbit * Math.sin(2 * anomalyRadians)
+      );
+
+      const latitudeRadians = degreesToRadians(GAME_LATITUDE);
+      const zenithRadians = degreesToRadians(90.833);
+      const hourAngle = Math.acos(
+        Math.cos(zenithRadians) / (Math.cos(latitudeRadians) * Math.cos(solarDeclination)) -
+        Math.tan(latitudeRadians) * Math.tan(solarDeclination)
+      );
+      const hourAngleDegrees = radiansToDegrees(hourAngle);
+      const referenceDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
+      const timeZoneOffset = getTimeZoneOffsetMinutes(referenceDate, PACIFIC_TIME_ZONE);
+      const solarNoon = 720 - 4 * GAME_LONGITUDE - equationOfTime + timeZoneOffset;
+      return {
+        sunrise: solarNoon - 4 * hourAngleDegrees,
+        sunset: solarNoon + 4 * hourAngleDegrees
+      };
+    }
+
+    function smoothStep(edge0, edge1, value) {
+      const amount = clamp((value - edge0) / Math.max(0.0001, edge1 - edge0), 0, 1);
+      return amount * amount * (3 - 2 * amount);
+    }
+
+    function updatePacificDayNight(force = false) {
+      const nowMs = Date.now();
+      if (!force && nowMs - dayNightState.lastUpdateMs < 1000) return dayNightState;
+      dayNightState.lastUpdateMs = nowMs;
+
+      const now = new Date(nowMs);
+      const parts = getZonedParts(now);
+      const dateKey = `${parts.year}-${parts.month}-${parts.day}`;
+      if (dateKey !== dayNightState.dateKey) {
+        const sunTimes = calculateSunriseSunsetMinutes(parts.year, parts.month, parts.day);
+        dayNightState.dateKey = dateKey;
+        dayNightState.sunriseMinutes = sunTimes.sunrise;
+        dayNightState.sunsetMinutes = sunTimes.sunset;
+      }
+
+      const currentMinutes = parts.hour * 60 + parts.minute + parts.second / 60;
+      dayNightState.currentMinutes = currentMinutes;
+      let nightFactor = 0;
+      if (currentMinutes < dayNightState.sunriseMinutes) {
+        nightFactor = 1;
+      } else if (currentMinutes < dayNightState.sunriseMinutes + SUN_TRANSITION_MINUTES) {
+        nightFactor = 1 - smoothStep(
+          dayNightState.sunriseMinutes,
+          dayNightState.sunriseMinutes + SUN_TRANSITION_MINUTES,
+          currentMinutes
+        );
+      } else if (currentMinutes >= dayNightState.sunsetMinutes) {
+        nightFactor = smoothStep(
+          dayNightState.sunsetMinutes,
+          dayNightState.sunsetMinutes + SUN_TRANSITION_MINUTES,
+          currentMinutes
+        );
+      }
+      dayNightState.nightFactor = clamp(nightFactor, 0, 1);
+      dayNightState.isNight = currentMinutes < dayNightState.sunriseMinutes || currentMinutes >= dayNightState.sunsetMinutes;
+
+      if (timeLabel) {
+        const phase = dayNightState.isNight ? 'night' : 'day';
+        timeLabel.textContent = `pacific time • ${pacificTimeFormatter.format(now).toLowerCase()} • ${phase}`;
+        const sunriseHour = Math.floor(dayNightState.sunriseMinutes / 60);
+        const sunriseMinute = Math.round(dayNightState.sunriseMinutes % 60);
+        const sunsetHour = Math.floor(dayNightState.sunsetMinutes / 60);
+        const sunsetMinute = Math.round(dayNightState.sunsetMinutes % 60);
+        const formatMinutes = (hour, minute) => {
+          const date = new Date(2000, 0, 1, hour, minute);
+          return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        };
+        timeLabel.title = `Sunrise ${formatMinutes(sunriseHour, sunriseMinute)} • Sunset ${formatMinutes(sunsetHour, sunsetMinute)} • Pacific time`;
+      }
+      return dayNightState;
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      cssWidth = Math.max(320, rect.width);
+      cssHeight = Math.max(260, rect.height);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(cssWidth * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function screenToWorld(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const sx = clamp(clientX - rect.left, 0, rect.width);
+      const sy = clamp(clientY - rect.top, 0, rect.height);
+      const det = projection.scaleY - projection.skewX * projection.skewY;
+      const projectedX = (projection.scaleY * sx - projection.skewX * sy) / det;
+      const projectedY = (sy - projection.skewY * sx) / det;
+      return {
+        x: clamp(projectedX + camera.x, 205, WORLD.width - 205),
+        y: clamp(projectedY + camera.y, 105, WORLD.height - 75)
+      };
+    }
+
+    function worldToScreen(x, y) {
+      const localX = x - camera.x;
+      const localY = y - camera.y;
+      return {
+        x: localX + projection.skewX * localY,
+        y: projection.skewY * localX + projection.scaleY * localY
+      };
+    }
+
+
+    function getActiveObstacles() {
+      return currentWorld === 'forest' ? forestObstacles : townObstacles;
+    }
+
+    function snapCameraToPlayer() {
+      camera.x = clamp(player.x - cssWidth / 2, 0, WORLD.width - cssWidth);
+      camera.y = clamp(player.y - cssHeight * 0.64, 0, WORLD.height - cssHeight);
+    }
+
+    function warpToForest() {
+      currentWorld = 'forest';
+      fountainWishPrimed = false;
+      player.x = 1030;
+      player.y = 900;
+      player.facing = 'down';
+      moveTarget.active = false;
+      nearby = null;
+      nearbyCritter = null;
+      nearbyForestFirefly = null;
+      nearbyPrompt = null;
+      statusMessage = 'entered rainforest escape ✦';
+      statusUntil = performance.now() + 3000;
+      warpCooldownUntil = performance.now() + 1400;
+      snapCameraToPlayer();
+      startTownMusic();
+    }
+
+    function warpToTown() {
+      currentWorld = 'town';
+      // Spawn fully clear of the left boundary and river collision,
+      // just before the bridge.
+      player.x = 225;
+      player.y = 1138;
+      player.facing = 'down';
+      moveTarget.active = false;
+      nearby = null;
+      nearbyCritter = null;
+      nearbyForestFirefly = null;
+      nearbyPrompt = null;
+      statusMessage = 'back in meow town ✦';
+      statusUntil = performance.now() + 2200;
+      warpCooldownUntil = performance.now() + 1400;
+      snapCameraToPlayer();
+      startTownMusic();
+    }
+
+    function roundedRect(x, y, w, h, r) {
+      const radius = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.arcTo(x + w, y, x + w, y + h, radius);
+      ctx.arcTo(x + w, y + h, x, y + h, radius);
+      ctx.arcTo(x, y + h, x, y, radius);
+      ctx.arcTo(x, y, x + w, y, radius);
+      ctx.closePath();
+    }
+
+    function circle(x, y, r) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+    }
+
+    function ellipse(x, y, rx, ry, rotation = 0) {
+      ctx.beginPath();
+      ctx.ellipse(x, y, rx, ry, rotation, 0, Math.PI * 2);
+    }
+
+    function shadow(x, y, rx, ry, alpha = 0.16) {
+      ctx.save();
+      ctx.fillStyle = `rgba(44, 62, 53, ${alpha})`;
+      ellipse(x, y, rx, ry);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Standalone lanterns removed from both worlds.
+    const townLanterns = [];
+    const forestLanterns = [];
+
+    function drawLanternPost(x, y, scale = 1, time = 0) {
+      const pulse = 0.5 + Math.sin(time * 0.0035 + x * 0.01) * 0.5;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      shadow(0, 10, 25, 9, 0.14);
+
+      ctx.strokeStyle = '#4d4a50';
+      ctx.lineWidth = 8;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(0, 8);
+      ctx.lineTo(0, -90);
+      ctx.quadraticCurveTo(0, -111, 20, -111);
+      ctx.lineTo(31, -111);
+      ctx.stroke();
+
+      ctx.fillStyle = '#655b5e';
+      roundedRect(-13, -2, 26, 12, 6);
+      ctx.fill();
+
+      ctx.fillStyle = '#51494d';
+      roundedRect(20, -119, 31, 12, 5);
+      ctx.fill();
+      roundedRect(23, -107, 25, 38, 7);
+      ctx.fill();
+
+      const bulbAlpha = 0.50 + dayNightState.nightFactor * (0.42 + pulse * 0.08);
+      ctx.fillStyle = `rgba(255, 226, 139, ${bulbAlpha})`;
+      roundedRect(28, -103, 15, 25, 5);
+      ctx.fill();
+      ctx.strokeStyle = '#806b5a';
+      ctx.lineWidth = 3;
+      roundedRect(23, -107, 25, 38, 7);
+      ctx.stroke();
+
+      ctx.fillStyle = '#ffc5df';
+      circle(0, -72, 5);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawLanternGlow(x, y, scale, time) {
+      const night = dayNightState.nightFactor;
+      if (night <= 0.015) return;
+      const pulse = 0.92 + Math.sin(time * 0.0035 + x * 0.01) * 0.08;
+      const glowX = x + 35 * scale;
+      const glowY = y - 91 * scale;
+      const radius = 135 * scale * (0.82 + night * 0.18);
+      const gradient = ctx.createRadialGradient(glowX, glowY, 2, glowX, glowY, radius);
+      gradient.addColorStop(0, `rgba(255, 247, 190, ${0.82 * night * pulse})`);
+      gradient.addColorStop(0.16, `rgba(255, 221, 120, ${0.48 * night * pulse})`);
+      gradient.addColorStop(0.48, `rgba(255, 190, 104, ${0.18 * night})`);
+      gradient.addColorStop(1, 'rgba(255, 176, 92, 0)');
+      ctx.fillStyle = gradient;
+      circle(glowX, glowY, radius);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(255, 247, 202, ${0.95 * night})`;
+      ctx.shadowColor = '#ffd67d';
+      ctx.shadowBlur = 20 * scale;
+      roundedRect(glowX - 7 * scale, glowY - 12 * scale, 14 * scale, 24 * scale, 5 * scale);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    function drawActiveLanternStructures(time) {
+      const lanterns = currentWorld === 'forest' ? forestLanterns : townLanterns;
+      lanterns.forEach(([x, y, scale]) => drawLanternPost(x, y, scale, time));
+    }
+
+    function drawActiveLanternGlows(time) {
+      const lanterns = currentWorld === 'forest' ? forestLanterns : townLanterns;
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      lanterns.forEach(([x, y, scale]) => drawLanternGlow(x, y, scale, time));
+      ctx.restore();
+    }
+
+    function drawDayNightOverlay(time) {
+      const night = dayNightState.nightFactor;
+      if (night <= 0.001) return;
+      ctx.save();
+      const nightGradient = ctx.createLinearGradient(0, 0, 0, cssHeight);
+      nightGradient.addColorStop(0, `rgba(8, 16, 51, ${0.58 * night})`);
+      nightGradient.addColorStop(0.58, `rgba(10, 27, 58, ${0.51 * night})`);
+      nightGradient.addColorStop(1, `rgba(13, 36, 55, ${0.43 * night})`);
+      ctx.fillStyle = nightGradient;
+      ctx.fillRect(0, 0, cssWidth, cssHeight);
+
+      // Removed the screen-space night dots/stars so nothing floats
+      // across the camera while the player moves. The tint remains, and the
+      // lantern glow still provides nighttime visibility.
+      ctx.restore();
+    }
+
+    function drawSkyBackdrop() {
+      const grad = ctx.createLinearGradient(0, 0, 0, cssHeight);
+      if (currentWorld === 'forest') {
+        grad.addColorStop(0, '#c7ece8');
+        grad.addColorStop(0.42, '#b9e2d5');
+        grad.addColorStop(1, '#98c9ae');
+      } else {
+        grad.addColorStop(0, '#bfeaf2');
+        grad.addColorStop(0.33, '#dff3db');
+        grad.addColorStop(1, '#9edb91');
+      }
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, cssWidth, cssHeight);
+    }
+
+    function drawGround() {
+      ctx.fillStyle = '#94d58e';
+      ctx.fillRect(0, 0, WORLD.width, WORLD.height);
+
+      // Soft mowing stripes.
+      ctx.globalAlpha = 0.12;
+      for (let y = 0; y < WORLD.height; y += 96) {
+        ctx.fillStyle = y % 192 === 0 ? '#d7f0a6' : '#75c785';
+        ctx.fillRect(0, y, WORLD.width, 48);
+      }
+      ctx.globalAlpha = 1;
+
+      // Main winding paths.
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#ead7b4';
+      // Fountain path: stop it at the fountain instead of extending downward.
+      ctx.lineWidth = 170;
+      ctx.beginPath();
+      ctx.moveTo(1040, 665);
+      ctx.bezierCurveTo(1010, 500, 980, 300, 1030, -40);
+      ctx.stroke();
+
+      // Soft rounded ending just under the fountain so the path feels finished.
+      ctx.fillStyle = '#ead7b4';
+      ellipse(1040, 658, 94, 54);
+      ctx.fill();
+
+      ctx.lineWidth = 135;
+      ctx.beginPath();
+      ctx.moveTo(90, 720);
+      ctx.bezierCurveTo(500, 685, 720, 650, 1020, 680);
+      ctx.bezierCurveTo(1340, 710, 1630, 665, 2020, 700);
+      ctx.stroke();
+
+      // Path to little nurse nook: stop the path when it reaches the house,
+      // so it doesn't keep showing past the building.
+      ctx.beginPath();
+      ctx.moveTo(1450, 690);
+      ctx.bezierCurveTo(1565, 758, 1628, 812, 1638, 860);
+      ctx.stroke();
+      ctx.fillStyle = '#ead7b4';
+      ellipse(1635, 872, 64, 34, 0.10);
+      ctx.fill();
+
+      // Cobblestone path to the bottom-left bridge: one seamless gray stone
+      // path with a darker gray outline. It connects exactly from the current
+      // main-path join point to the current bridge join point.
+      const drawCobblestoneRoute = () => {
+        ctx.beginPath();
+        // Let the top of the path meet the curved dirt-road border at one
+        // clean edge-to-edge contact point without any visible grass gap.
+        ctx.moveTo(629, 718);
+        ctx.bezierCurveTo(620, 730, 606, 759, 565, 852);
+        ctx.bezierCurveTo(526, 934, 466, 1018, 374, 1091);
+        ctx.bezierCurveTo(302, 1148, 236, 1172, 186, 1184);
+      };
+
+      // Clip the top edge right along the lower border of the dirt road so the
+      // gray cobblestone path touches it exactly without overlapping the tan
+      // path or leaving any white/grass gap at the join.
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 734);
+      ctx.lineTo(552, 734);
+      ctx.bezierCurveTo(576, 732, 602, 731, 629, 733);
+      ctx.bezierCurveTo(656, 734, 685, 735, 720, 736);
+      ctx.lineTo(WORLD.width, 736);
+      ctx.lineTo(WORLD.width, WORLD.height);
+      ctx.lineTo(0, WORLD.height);
+      ctx.closePath();
+      ctx.clip();
+
+      // Darker gray outline.
+      ctx.strokeStyle = '#8f8f93';
+      ctx.lineWidth = 86;
+      drawCobblestoneRoute();
+      ctx.stroke();
+
+      // Main gray stone path.
+      ctx.strokeStyle = '#c7c7cb';
+      ctx.lineWidth = 68;
+      drawCobblestoneRoute();
+      ctx.stroke();
+
+      // Soft highlight to keep the stone path readable and cute.
+      ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+      ctx.lineWidth = 14;
+      drawCobblestoneRoute();
+      ctx.stroke();
+      ctx.restore();
+
+      // Cute little cobblestone texture following the route.
+      const cobblePieces = [
+        [607, 778, 18, 11, -0.30], [570, 850, 17, 10, -0.20], [528, 928, 18, 11, -0.10],
+        [465, 1013, 17, 10, -0.22], [398, 1076, 18, 11, 0.08], [325, 1128, 17, 10, -0.20],
+        [251, 1165, 16, 9, 0.08]
+      ];
+      cobblePieces.forEach(([x, y, rx, ry, rot]) => {
+        ctx.fillStyle = '#b2b2b7';
+        ellipse(x, y, rx, ry, rot);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ellipse(x - 3, y - 2, rx * 0.42, ry * 0.32, rot);
+        ctx.fill();
+      });
+
+
+      // Pebbles on the path.
+      ctx.fillStyle = 'rgba(194, 163, 123, 0.26)';
+      for (let i = 0; i < 52; i++) {
+        const x = 860 + ((i * 83) % 350);
+        const y = 35 + ((i * 137) % 1280);
+        ellipse(x, y, 4 + (i % 3), 2 + (i % 2), (i % 5) * 0.3);
+        ctx.fill();
+      }
+    }
+
+    function drawRiver() {
+      ctx.save();
+      ctx.fillStyle = '#74cbd4';
+      ctx.beginPath();
+      ctx.moveTo(0, 1188);
+      ctx.bezierCurveTo(250, 1154, 415, 1276, 650, 1250);
+      ctx.bezierCurveTo(845, 1228, 958, 1276, 1140, 1260);
+      ctx.bezierCurveTo(1415, 1238, 1630, 1288, 2100, 1228);
+      ctx.lineTo(2100, 1312);
+      ctx.lineTo(0, 1312);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(236, 255, 250, 0.50)';
+      ctx.lineWidth = 5;
+      for (let i = 0; i < 7; i++) {
+        const y = 1226 + i * 12;
+        ctx.beginPath();
+        ctx.moveTo(30 + (i % 3) * 35, y);
+        ctx.bezierCurveTo(250, y - 14, 440, y + 12, 680, y - 1);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawBridge() {
+      shadow(186, 1250, 70, 24, 0.18);
+      ctx.fillStyle = '#b97d55';
+      roundedRect(118, 1184, 136, 124, 18);
+      ctx.fill();
+      ctx.fillStyle = '#d7a36f';
+      for (let i = 0; i < 6; i++) {
+        roundedRect(130, 1196 + i * 20, 112, 12, 5);
+        ctx.fill();
+      }
+      ctx.strokeStyle = '#875b44';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(130, 1188);
+      ctx.lineTo(242, 1188);
+      ctx.moveTo(130, 1304);
+      ctx.lineTo(242, 1304);
+      ctx.stroke();
+    }
+
+    function drawForestWarpMeadow() {
+      shadow(188, 1300, 104, 28, 0.16);
+      const meadowGrad = ctx.createRadialGradient(188, 1294, 12, 188, 1294, 120);
+      meadowGrad.addColorStop(0, '#b8eb9e');
+      meadowGrad.addColorStop(0.62, '#9cda84');
+      meadowGrad.addColorStop(1, '#78c76e');
+      ctx.fillStyle = meadowGrad;
+      ellipse(188, 1300, 124, 66, 0.05);
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(201, 244, 175, 0.58)';
+      ellipse(164, 1287, 44, 18, -0.18);
+      ctx.fill();
+      ellipse(215, 1316, 38, 16, 0.2);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(120, 1296);
+      ctx.quadraticCurveTo(165, 1278, 232, 1288);
+      ctx.stroke();
+
+      drawFlowerPatch(135, 1306, 5, ['#ffd7e7', '#fff3a8', '#d9c6ff']);
+      drawFlowerPatch(230, 1290, 4, ['#ffd7e7', '#fff3a8', '#c9eff2']);
+      drawFlowerPatch(210, 1322, 4, ['#fff3a8', '#ffd7e7', '#d9c6ff']);
+    }
+
+    // Pastel 3D matcha cafe sprite, embedded so the game stays in one HTML file.
+    const matchaCafeSprite = new Image();
+    matchaCafeSprite.src = 'assets/asset_048.png';
+
+    function drawMatchaCafe(x, y, width) {
+      const height = width * 599 / 720;
+
+      // Soft grounding shadow beneath the miniature storefront.
+      shadow(x + width / 2, y + height - 4, width * 0.43, 24, 0.16);
+
+      if (matchaCafeSprite.complete && matchaCafeSprite.naturalWidth > 0) {
+        ctx.save();
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        // Trim a tiny right-edge fringe from the source image so no white line
+        // shows beside the vertical MATCHA sign; that area should read as grass.
+        const cropRight = 6;
+        ctx.drawImage(
+          matchaCafeSprite,
+          0, 0,
+          Math.max(1, matchaCafeSprite.naturalWidth - cropRight),
+          matchaCafeSprite.naturalHeight,
+          x, y, width, height
+        );
+        ctx.restore();
+      } else {
+        // Keep a visible fallback while the embedded sprite finishes loading.
+        drawHouse(x + 35, y + 42, width - 70, height - 42, '#dce4bd', '#e9b6ab', 'matcha cafe', '#fff4e8');
+      }
+    }
+
+    function drawHouse(x, y, w, h, wall, roof, label, accent = '#fff5e9') {
+      shadow(x + w / 2, y + h + 12, w * 0.46, 30, 0.18);
+
+      ctx.fillStyle = wall;
+      roundedRect(x, y + 52, w, h - 52, 24);
+      ctx.fill();
+
+      ctx.fillStyle = roof;
+      ctx.beginPath();
+      ctx.moveTo(x - 22, y + 75);
+      ctx.quadraticCurveTo(x + w / 2, y - 38, x + w + 22, y + 75);
+      ctx.quadraticCurveTo(x + w / 2, y + 46, x - 22, y + 75);
+      ctx.fill();
+
+      ctx.fillStyle = accent;
+      roundedRect(x + w * 0.39, y + h - 93, w * 0.22, 93, 13);
+      ctx.fill();
+      ctx.fillStyle = '#865b4c';
+      circle(x + w * 0.55, y + h - 48, 4);
+      ctx.fill();
+
+      ctx.fillStyle = '#c9ecf0';
+      roundedRect(x + 28, y + 103, 65, 55, 12);
+      ctx.fill();
+      roundedRect(x + w - 93, y + 103, 65, 55, 12);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(77, 87, 82, 0.25)';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(x + 59, y + 105, 4, 51);
+      ctx.strokeRect(x + w - 62, y + 105, 4, 51);
+
+      ctx.font = "900 18px 'Nunito', sans-serif";
+      const labelWidth = Math.max(156, Math.ceil(ctx.measureText(label).width) + 34);
+      const labelHeight = 38;
+      const labelX = x + w / 2 - labelWidth / 2;
+      const labelY = y + 63;
+      ctx.fillStyle = 'rgba(255,255,255,0.93)';
+      roundedRect(labelX, labelY, labelWidth, labelHeight, 19);
+      ctx.fill();
+      ctx.fillStyle = '#5b4d58';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(label, x + w / 2, labelY + labelHeight / 2);
+    }
+
+    function playFountainDing(delaySeconds = 0.56) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      try {
+        if (!fountainDingAudioContext) fountainDingAudioContext = new AudioContextClass();
+        if (fountainDingAudioContext.state === 'suspended') fountainDingAudioContext.resume();
+
+        const audio = fountainDingAudioContext;
+        const start = audio.currentTime + delaySeconds;
+        const master = audio.createGain();
+        const shimmer = audio.createBiquadFilter();
+        const compressor = audio.createDynamicsCompressor();
+
+        shimmer.type = 'highshelf';
+        shimmer.frequency.setValueAtTime(1400, start);
+        shimmer.gain.setValueAtTime(4, start);
+        compressor.threshold.setValueAtTime(-10, start);
+        compressor.knee.setValueAtTime(10, start);
+        compressor.ratio.setValueAtTime(4, start);
+        compressor.attack.setValueAtTime(0.002, start);
+        compressor.release.setValueAtTime(0.16, start);
+
+        master.gain.setValueAtTime(0.0001, start);
+        master.gain.exponentialRampToValueAtTime(0.34, start + 0.012);
+        master.gain.exponentialRampToValueAtTime(0.0001, start + 0.62);
+        master.connect(shimmer);
+        shimmer.connect(compressor);
+        compressor.connect(audio.destination);
+
+        [
+          { frequency: 987.77, offset: 0, type: 'sine', volume: 0.72 },
+          { frequency: 1318.51, offset: 0.075, type: 'triangle', volume: 0.48 },
+          { frequency: 1975.53, offset: 0.14, type: 'sine', volume: 0.22 }
+        ].forEach(note => {
+          const osc = audio.createOscillator();
+          const gain = audio.createGain();
+          const noteStart = start + note.offset;
+          osc.type = note.type;
+          osc.frequency.setValueAtTime(note.frequency, noteStart);
+          gain.gain.setValueAtTime(0.0001, noteStart);
+          gain.gain.exponentialRampToValueAtTime(note.volume, noteStart + 0.008);
+          gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.35);
+          osc.connect(gain);
+          gain.connect(master);
+          osc.start(noteStart);
+          osc.stop(noteStart + 0.38);
+        });
+      } catch (error) {
+        // The animation still works if the browser cannot create audio.
+      }
+    }
+
+    function tossCoinIntoFountain() {
+      if (currentWorld !== 'town' || coinToss.active || !fountainWishPrimed) return;
+
+      const distance = Math.hypot(
+        player.x - FOUNTAIN_POINT.x,
+        player.y - FOUNTAIN_POINT.waterY
+      );
+      if (distance > FOUNTAIN_POINT.interactionRadius) return;
+
+      // T can be pressed immediately after reading the fountain dialogue.
+      if (pausedByDialog) closeDialog();
+      fountainWishPrimed = false;
+
+      const dx = FOUNTAIN_POINT.x - player.x;
+      const dy = FOUNTAIN_POINT.waterY - player.y;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        player.facing = dx < 0 ? 'left' : 'right';
+      } else {
+        player.facing = dy < 0 ? 'up' : 'down';
+      }
+
+      const length = Math.hypot(dx, dy) || 1;
+      coinToss.active = true;
+      coinToss.startTime = performance.now();
+      coinToss.fromX = player.x + (dx / length) * 24;
+      coinToss.fromY = player.y - 74;
+      coinToss.toX = FOUNTAIN_POINT.x;
+      coinToss.toY = FOUNTAIN_POINT.waterY;
+      moveTarget.active = false;
+      player.walking = false;
+
+      statusMessage = 'a coin sparkles into the wish fountain ✦';
+      statusUntil = coinToss.startTime + 1700;
+      playFountainDing(0.56);
+      canvas.focus({ preventScroll: true });
+    }
+
+    function drawFountain() {
+      const x = 1040, y = 595;
+      shadow(x, y + 76, 95, 28, 0.18);
+      ctx.fillStyle = '#d7e8e2';
+      ellipse(x, y + 58, 105, 48);
+      ctx.fill();
+      ctx.fillStyle = '#86d3dc';
+      ellipse(x, y + 49, 84, 32);
+      ctx.fill();
+      ctx.fillStyle = '#eaf3ee';
+      roundedRect(x - 23, y - 20, 46, 86, 18);
+      ctx.fill();
+      ctx.strokeStyle = '#83cdd9';
+      ctx.lineWidth = 7;
+      ctx.beginPath();
+      ctx.moveTo(x, y + 6);
+      ctx.quadraticCurveTo(x - 55, y - 32, x - 63, y + 10);
+      ctx.moveTo(x, y + 6);
+      ctx.quadraticCurveTo(x + 55, y - 32, x + 63, y + 10);
+      ctx.stroke();
+    }
+
+    function drawTree(x, y, scale = 1, fruit = false) {
+      shadow(x, y + 31 * scale, 44 * scale, 18 * scale, 0.15);
+      ctx.fillStyle = '#8c674c';
+      roundedRect(x - 10 * scale, y - 25 * scale, 20 * scale, 65 * scale, 8 * scale);
+      ctx.fill();
+
+      const crowns = [
+        [0, -52, 38], [-26, -40, 28], [27, -38, 30], [0, -23, 37]
+      ];
+      crowns.forEach(([dx, dy, r], index) => {
+        ctx.fillStyle = index % 2 ? '#4fba79' : '#65c989';
+        circle(x + dx * scale, y + dy * scale, r * scale);
+        ctx.fill();
+      });
+
+      if (fruit) {
+        ctx.fillStyle = '#f7a1a9';
+        [[-22,-50], [20,-53], [4,-28]].forEach(([dx,dy]) => {
+          circle(x + dx * scale, y + dy * scale, 7 * scale);
+          ctx.fill();
+        });
+      }
+    }
+
+    function drawFlowerPatch(x, y, count = 12, palette = ['#ffd3e6', '#fff3a8', '#d9c6ff']) {
+      for (let i = 0; i < count; i++) {
+        const dx = ((i * 37) % 120) - 60;
+        const dy = ((i * 53) % 72) - 36;
+        const px = x + dx;
+        const py = y + dy;
+        ctx.strokeStyle = '#4f9e65';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(px, py + 9);
+        ctx.lineTo(px, py + 22);
+        ctx.stroke();
+        ctx.fillStyle = palette[i % palette.length];
+        for (let p = 0; p < 5; p++) {
+          const angle = (Math.PI * 2 * p) / 5;
+          circle(px + Math.cos(angle) * 6, py + Math.sin(angle) * 6, 4);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#f5c65f';
+        circle(px, py, 3);
+        ctx.fill();
+      }
+    }
+
+    function drawBench(x, y) {
+      shadow(x, y + 19, 58, 15, 0.14);
+      ctx.fillStyle = '#ab7657';
+      roundedRect(x - 55, y - 22, 110, 18, 6);
+      ctx.fill();
+      roundedRect(x - 55, y + 1, 110, 17, 6);
+      ctx.fill();
+      ctx.fillRect(x - 42, y + 10, 10, 28);
+      ctx.fillRect(x + 32, y + 10, 10, 28);
+    }
+
+    function drawSign(x, y, text) {
+      shadow(x, y + 28, 38, 12, 0.13);
+      ctx.fillStyle = '#8c674c';
+      roundedRect(x - 6, y - 2, 12, 62, 4);
+      ctx.fill();
+      ctx.fillStyle = '#f7e4bd';
+      roundedRect(x - 65, y - 40, 130, 45, 10);
+      ctx.fill();
+      ctx.fillStyle = '#5a4b45';
+      ctx.font = "900 14px 'Nunito', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y - 18);
+    }
+
+
+    function drawWarpPortal(x, y, label, time) {
+      const pulse = 1 + Math.sin(time * 0.006) * 0.08;
+      shadow(x, y + 16, 58, 17, 0.18);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(pulse, pulse);
+      ctx.fillStyle = 'rgba(255, 197, 223, 0.26)';
+      ctx.shadowColor = '#ffc5df';
+      ctx.shadowBlur = 24;
+      ellipse(0, 0, 60, 33);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 245, 250, 0.98)';
+      ctx.lineWidth = 7;
+      ellipse(0, 0, 47, 25);
+      ctx.stroke();
+      ctx.strokeStyle = '#ffc5df';
+      ctx.lineWidth = 5;
+      ellipse(0, 0, 34, 17);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = 'rgba(255,255,255,0.94)';
+      roundedRect(x - 68, y - 75, 136, 32, 16);
+      ctx.fill();
+      ctx.fillStyle = '#514653';
+      ctx.font = "900 13px 'Nunito', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(label, x, y - 59);
+    }
+
+    function drawForestPine(x, y, scale = 1, tint = '#5e9a79') {
+      shadow(x, y + 28 * scale, 46 * scale, 18 * scale, 0.14);
+      ctx.fillStyle = '#7b6558';
+      roundedRect(x - 8 * scale, y - 18 * scale, 16 * scale, 60 * scale, 6 * scale);
+      ctx.fill();
+
+      ctx.fillStyle = tint;
+      ctx.beginPath();
+      ctx.moveTo(x, y - 112 * scale);
+      ctx.lineTo(x - 45 * scale, y - 38 * scale);
+      ctx.lineTo(x + 45 * scale, y - 38 * scale);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(x, y - 82 * scale);
+      ctx.lineTo(x - 58 * scale, y - 4 * scale);
+      ctx.lineTo(x + 58 * scale, y - 4 * scale);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(220, 255, 239, 0.18)';
+      ctx.beginPath();
+      ctx.moveTo(x - 12 * scale, y - 94 * scale);
+      ctx.lineTo(x - 31 * scale, y - 46 * scale);
+      ctx.lineTo(x + 6 * scale, y - 46 * scale);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function drawForestFireflies(time) {
+      forestFireflies.forEach(f => {
+        if (f.captured) return;
+        const pos = getForestFireflyPosition(f, time);
+        f.currentX = pos.x;
+        f.currentY = pos.y;
+        const alpha = 0.45 + (Math.sin(time * 0.003 + f.sway) + 1) * 0.18;
+        const isActive = nearbyForestFirefly && nearbyForestFirefly.id === f.id;
+        ctx.save();
+        if (isActive) {
+          ctx.globalAlpha = 0.95;
+          ctx.strokeStyle = 'rgba(255, 245, 169, 0.95)';
+          ctx.lineWidth = 2.5;
+          ctx.shadowColor = '#fff0a8';
+          ctx.shadowBlur = 16;
+          circle(pos.x, pos.y, 15 + Math.sin(time * 0.008) * 2);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#fff2a6';
+        ctx.shadowColor = '#fff0a8';
+        ctx.shadowBlur = f.glow;
+        circle(pos.x, pos.y, f.size);
+        ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    function drawRainOverlay(time) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(232, 242, 250, 0.20)';
+      ctx.lineWidth = 1.35;
+      for (let i = 0; i < 92; i++) {
+        const x = ((i * 67) + time * 0.045) % (cssWidth + 80) - 40;
+        const y = ((i * 41) + time * 0.10) % (cssHeight + 120) - 60;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - 6, y + 17);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawForestTestWorld(time) {
+      const ground = ctx.createLinearGradient(0, 0, 0, WORLD.height);
+      ground.addColorStop(0, '#93ccb1');
+      ground.addColorStop(0.5, '#82be9e');
+      ground.addColorStop(1, '#73b08e');
+      ctx.fillStyle = ground;
+      ctx.fillRect(0, 0, WORLD.width, WORLD.height);
+
+      // soft misty backdrop so it feels like a cute rainy escape instead of a dark forest.
+      ctx.fillStyle = 'rgba(245, 255, 252, 0.16)';
+      ellipse(980, 280, 700, 170);
+      ctx.fill();
+      ellipse(1280, 420, 530, 120);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(227, 249, 241, 0.12)';
+      ellipse(520, 360, 420, 110);
+      ctx.fill();
+
+      // winding path through the forest
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#b39983';
+      ctx.lineWidth = 128;
+      ctx.beginPath();
+      ctx.moveTo(250, 930);
+      ctx.bezierCurveTo(420, 900, 585, 870, 790, 800);
+      ctx.bezierCurveTo(980, 735, 1160, 625, 1360, 520);
+      ctx.bezierCurveTo(1490, 450, 1625, 390, 1820, 360);
+      ctx.stroke();
+      ctx.strokeStyle = '#d9c3a9';
+      ctx.lineWidth = 92;
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255, 246, 232, 0.42)';
+      ctx.lineWidth = 13;
+      ctx.beginPath();
+      ctx.moveTo(250, 930);
+      ctx.bezierCurveTo(420, 900, 585, 870, 790, 800);
+      ctx.bezierCurveTo(980, 735, 1160, 625, 1360, 520);
+      ctx.bezierCurveTo(1490, 450, 1625, 390, 1820, 360);
+      ctx.stroke();
+
+      // dreamy puddles / wet ground
+      ctx.fillStyle = 'rgba(155, 214, 224, 0.30)';
+      ellipse(760, 925, 94, 28);
+      ctx.fill();
+      ellipse(1180, 720, 72, 20);
+      ctx.fill();
+      ellipse(1480, 518, 68, 18);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ellipse(745, 919, 44, 8);
+      ctx.fill();
+      ellipse(1170, 716, 30, 6);
+      ctx.fill();
+
+      // distant forest edge
+      for (let i = 0; i < 13; i++) {
+        drawForestPine(160 + i * 160, 255 + (i % 2) * 24, 1.18 + (i % 3) * 0.05, '#5f9a7c');
+      }
+
+      // midground trees
+      [
+        [300, 760, 1.18, '#62a685'], [470, 655, 1.02, '#76b291'], [680, 690, 1.16, '#5d9f82'],
+        [910, 555, 1.12, '#74ad90'], [1180, 520, 1.28, '#5e9a7f'], [1450, 450, 1.08, '#79b69a'],
+        [1675, 620, 1.2, '#5f9d82'], [1810, 830, 1.14, '#73ad92'], [1260, 865, 1.26, '#68a88a']
+      ].forEach(([x, y, s, tint]) => drawForestPine(x, y, s, tint));
+
+      // cute little flower bits around the path
+      drawFlowerPatch(515, 930, 10, ['#ffd7e7', '#fff3a8', '#d9c6ff']);
+      drawFlowerPatch(980, 760, 9, ['#c9eff2', '#ffd8e8', '#fff3a8']);
+      drawFlowerPatch(1430, 565, 8, ['#ffd9ea', '#e3d1ff', '#fff3b1']);
+
+      // return warp near the entrance
+      drawWarpPortal(forestReturnWarp.x, forestReturnWarp.y, 'return to town', time);
+      drawActiveLanternStructures(time);
+
+      // glowing fireflies over the scene
+      drawForestFireflies(time);
+    }
+
+    function drawButterfly(x, y, time, color) {
+      const flap = 5 + Math.sin(time * 0.006 + x) * 3;
+      ctx.fillStyle = color;
+      ellipse(x - flap, y, 7, 4, -0.5);
+      ctx.fill();
+      ellipse(x + flap, y, 7, 4, 0.5);
+      ctx.fill();
+      ctx.fillStyle = '#5b4d58';
+      ellipse(x, y, 2, 6);
+      ctx.fill();
+    }
+
+    function drawBee(x, y, time, color) {
+      const buzz = Math.sin(time * 0.02 + x * 0.01) * 1.6;
+      ctx.save();
+      ctx.translate(x, y + buzz);
+      ctx.fillStyle = 'rgba(255,255,255,0.82)';
+      ellipse(-6, -5, 7, 4, -0.7);
+      ctx.fill();
+      ellipse(6, -5, 7, 4, 0.7);
+      ctx.fill();
+      ctx.fillStyle = color;
+      ellipse(0, 0, 10, 7);
+      ctx.fill();
+      ctx.strokeStyle = '#473932';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-5, -5);
+      ctx.lineTo(-5, 5);
+      ctx.moveTo(0, -6);
+      ctx.lineTo(0, 6);
+      ctx.moveTo(5, -5);
+      ctx.lineTo(5, 5);
+      ctx.stroke();
+      ctx.fillStyle = '#473932';
+      ellipse(9, 0, 3, 3.5);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(10, -2);
+      ctx.lineTo(13, -6);
+      ctx.moveTo(10, 2);
+      ctx.lineTo(13, 6);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function getCritterPosition(critter, time) {
+      return {
+        x: critter.x + Math.sin(time * critter.speedX + critter.phase) * critter.rangeX,
+        y: critter.y + Math.cos(time * critter.speedY + critter.phase * 1.7) * critter.rangeY
+      };
+    }
+
+    function drawCritter(critter, time, active) {
+      if (critter.captured) return;
+      const x = critter.currentX;
+      const y = critter.currentY;
+      if (active) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 242, 174, 0.95)';
+        ctx.lineWidth = 2.5;
+        circle(x, y, critter.type === 'bee' ? 17 : 16);
+        ctx.stroke();
+        ctx.restore();
+      }
+      if (critter.type === 'bee') drawBee(x, y, time, critter.color);
+      else drawButterfly(x, y, time, critter.color);
+    }
+
+    function drawNightCritterGlows(time) {
+      const night = dayNightState.nightFactor;
+      if (night <= 0.01 || currentWorld !== 'town') return;
+
+      critters.forEach(critter => {
+        if (critter.captured) return;
+        const x = critter.currentX;
+        const y = critter.currentY;
+        const isBee = critter.type === 'bee';
+        const pulse = 0.92 + Math.sin(time * 0.0045 + critter.phase * 2.4) * 0.08;
+        const radius = (isBee ? 48 : 44) * pulse;
+        const glowRgb = isBee ? '255, 220, 105' : '255, 196, 232';
+        const glowColor = isBee ? '#ffdf79' : '#ffc7e8';
+
+        // Soft pool of light around each collectable critter.
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        const glow = ctx.createRadialGradient(x, y, 2, x, y, radius);
+        glow.addColorStop(0, `rgba(${glowRgb}, ${0.72 * night})`);
+        glow.addColorStop(0.28, `rgba(${glowRgb}, ${0.34 * night})`);
+        glow.addColorStop(1, `rgba(${glowRgb}, 0)`);
+        ctx.fillStyle = glow;
+        circle(x, y, radius);
+        ctx.fill();
+        ctx.restore();
+
+        // Lightly redraw the critter after the night tint so its shape stays
+        // visible inside the halo without changing its daytime appearance.
+        ctx.save();
+        ctx.globalAlpha = 0.52 * night;
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = 22 + Math.sin(time * 0.005 + critter.phase) * 4;
+        if (isBee) drawBee(x, y, time, critter.color);
+        else drawButterfly(x, y, time, critter.color);
+        ctx.restore();
+      });
+    }
+
+    function spawnCaptureBurst(x, y, palette) {
+      for (let i = 0; i < 16; i++) {
+        const angle = (Math.PI * 2 * i) / 16 + Math.random() * 0.35;
+        const speed = 28 + Math.random() * 52;
+        captureBursts.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 28,
+          life: 0.85 + Math.random() * 0.25,
+          ttl: 0.85 + Math.random() * 0.25,
+          size: 4 + Math.random() * 5,
+          color: palette[i % palette.length]
+        });
+      }
+    }
+
+    function updateCaptureBursts(dt) {
+      for (let i = captureBursts.length - 1; i >= 0; i--) {
+        const burst = captureBursts[i];
+        burst.life -= dt;
+        burst.x += burst.vx * dt;
+        burst.y += burst.vy * dt;
+        burst.vy += 24 * dt;
+        if (burst.life <= 0) captureBursts.splice(i, 1);
+      }
+    }
+
+    function drawCaptureBursts() {
+      captureBursts.forEach(burst => {
+        const alpha = Math.max(0, burst.life / burst.ttl);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = burst.color;
+        ctx.shadowColor = burst.color;
+        ctx.shadowBlur = 12;
+        ctx.translate(burst.x, burst.y);
+        ctx.rotate((1 - alpha) * Math.PI);
+        ctx.beginPath();
+        ctx.moveTo(0, -burst.size);
+        ctx.lineTo(burst.size * 0.32, -burst.size * 0.32);
+        ctx.lineTo(burst.size, 0);
+        ctx.lineTo(burst.size * 0.32, burst.size * 0.32);
+        ctx.lineTo(0, burst.size);
+        ctx.lineTo(-burst.size * 0.32, burst.size * 0.32);
+        ctx.lineTo(-burst.size, 0);
+        ctx.lineTo(-burst.size * 0.32, -burst.size * 0.32);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    function drawSparkle(x, y, time, active) {
+      const pulse = 1 + Math.sin(time * 0.005 + x * 0.01) * 0.25;
+      ctx.save();
+      ctx.translate(x, y - 105 - Math.sin(time * 0.003 + y) * 8);
+      ctx.scale(pulse, pulse);
+      ctx.fillStyle = active ? '#fff8a8' : 'rgba(255, 242, 174, 0.88)';
+      ctx.shadowColor = '#fff4a8';
+      ctx.shadowBlur = 15;
+      ctx.beginPath();
+      ctx.moveTo(0, -13);
+      ctx.lineTo(4, -4);
+      ctx.lineTo(13, 0);
+      ctx.lineTo(4, 4);
+      ctx.lineTo(0, 13);
+      ctx.lineTo(-4, 4);
+      ctx.lineTo(-13, 0);
+      ctx.lineTo(-4, -4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawCoinToss(time) {
+      if (!coinToss.active) return;
+
+      const progress = clamp((time - coinToss.startTime) / coinToss.duration, 0, 1);
+      const travel = 1 - Math.pow(1 - progress, 2);
+      const x = coinToss.fromX + (coinToss.toX - coinToss.fromX) * travel;
+      const baseY = coinToss.fromY + (coinToss.toY - coinToss.fromY) * travel;
+      const y = baseY - Math.sin(progress * Math.PI) * 126;
+      const spin = Math.max(0.18, Math.abs(Math.cos(progress * Math.PI * 7)));
+
+      // The flying coin.
+      if (progress < 0.88) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(spin, 1);
+        ctx.shadowColor = 'rgba(255, 218, 88, 0.85)';
+        ctx.shadowBlur = 13;
+        ctx.fillStyle = '#f6c94f';
+        circle(0, 0, 10);
+        ctx.fill();
+        ctx.strokeStyle = '#b9822d';
+        ctx.lineWidth = 2.5;
+        circle(0, 0, 8);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(255,255,225,0.88)';
+        ellipse(-3, -3, 2.5, 4, -0.45);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // A tiny water-ring and sparkle when the coin lands.
+      if (progress > 0.70) {
+        const splash = clamp((progress - 0.70) / 0.30, 0, 1);
+        const alpha = 1 - splash;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = 'rgba(241, 255, 255, 0.95)';
+        ctx.lineWidth = 3;
+        ellipse(coinToss.toX, coinToss.toY, 10 + splash * 34, 4 + splash * 12);
+        ctx.stroke();
+        ctx.fillStyle = '#fff3a8';
+        ctx.shadowColor = '#fff0a8';
+        ctx.shadowBlur = 10;
+        for (let i = 0; i < 5; i++) {
+          const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+          const radius = 12 + splash * 28;
+          circle(
+            coinToss.toX + Math.cos(angle) * radius,
+            coinToss.toY - 8 - Math.sin(splash * Math.PI) * (12 + i * 2) + Math.sin(angle) * 5,
+            2.2
+          );
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    function drawTown(time) {
+      drawGround();
+      drawRiver();
+      drawBridge();
+      drawForestWarpMeadow();
+
+      // Distant tree border.
+      for (let i = 0; i < 15; i++) {
+        drawTree(225 + i * 128, 135 + (i % 2) * 36, 0.9 + (i % 3) * 0.08, i % 4 === 0);
+      }
+
+      // Buildings.
+      drawMatchaCafe(245, 205, 360);
+      drawHouse(1435, 230, 320, 255, '#d9d0ef', '#8397ca', 'tiny library', '#fff2e7');
+      drawHouse(1575, 810, 305, 235, '#cbe7e0', '#ec9fb8', 'little nurse nook >_<', '#fff1e6');
+
+      drawFountain();
+      drawFlowerPatch(1385, 920, 17, ['#c9d8ff', '#ffd3e6', '#fff1a8']);
+      drawSign(545, 885, 'touching grass');
+      drawWarpPortal(townWarp.x, townWarp.y, 'forest warp', time);
+      drawBench(1260, 830);
+      drawBench(820, 545);
+      drawActiveLanternStructures(time);
+
+      // Foreground trees and peach grove.
+      [
+        [250,690,1.0,true], [315,820,0.9,false], [420,1120,1.05,true],
+        [1830,610,1.0,true], [1870,760,0.95,false], [1450,1120,1.05,true],
+        [800,250,0.9,false], [1270,260,0.94,true], [760,920,0.75,false]
+      ].forEach(args => drawTree(...args));
+
+      critters.forEach(critter => drawCritter(critter, time, nearbyCritter && nearbyCritter.id === critter.id));
+      drawCaptureBursts();
+
+      landmarks.forEach(point => drawSparkle(point.x, point.y, time, nearby && nearby.id === point.id));
+    }
+
+    function drawCat(x, y, time) {
+      const isBack = player.facing === 'up';
+      const facingKey = isBack ? 'back' : 'front';
+      const fullSprite = characterSprites[facingKey];
+      const bodySprite = isBack ? characterSprites.backBody : characterSprites.frontBody;
+      const leftLegSprite = isBack ? characterSprites.backLegL : characterSprites.frontLegL;
+      const rightLegSprite = isBack ? characterSprites.backLegR : characterSprites.frontLegR;
+      const pivots = characterSpritePivots[facingKey];
+      const sourceWidth = 270;
+      const sourceHeight = 480;
+      const baseHeight = 132;
+      const scale = baseHeight / sourceHeight;
+      const baseWidth = sourceWidth * scale;
+      const step = player.walking ? Math.sin(player.phase) : 0;
+      const leftLegAngle = player.walking ? step * 0.13 : 0;
+      const rightLegAngle = player.walking ? -step * 0.13 : 0;
+      const leftLift = player.walking ? Math.max(0, -step) * 1.1 : 0;
+      const rightLift = player.walking ? Math.max(0, step) * 1.1 : 0;
+      const topX = -baseWidth / 2;
+      const topY = -baseHeight + 8;
+
+      ctx.save();
+      ctx.translate(x, y);
+
+      // A tiny wind-up and forward lean while Renee tosses the coin.
+      if (coinToss.active) {
+        const tossProgress = clamp((time - coinToss.startTime) / coinToss.duration, 0, 1);
+        const gesture = Math.sin(Math.min(1, tossProgress / 0.58) * Math.PI);
+        const direction = coinToss.toX >= player.x ? 1 : -1;
+        ctx.translate(direction * gesture * 3, -gesture * 3.5);
+        ctx.rotate(direction * gesture * 0.055);
+      }
+
+      if (player.facing === 'left') ctx.scale(-1, 1);
+
+      const jumpRatio = Math.min(1, player.jumpHeight / 70);
+      shadow(
+        0,
+        8,
+        baseWidth * (player.walking ? 0.31 : 0.29) * (1 - jumpRatio * 0.20),
+        (player.walking ? 7 : 8) * (1 - jumpRatio * 0.18),
+        0.17 * (1 - jumpRatio * 0.35)
+      );
+
+      // Move the sprite straight upward on screen while leaving the shadow on the ground.
+      const projectionDet = projection.scaleY - projection.skewX * projection.skewY;
+      const jumpWorldY = player.jumpHeight / projectionDet;
+      const jumpWorldX = projection.skewX * jumpWorldY;
+      ctx.translate(jumpWorldX, -jumpWorldY);
+
+      const drawLeg = (img, pivot, angle, lift) => {
+        if (!img.complete || img.naturalWidth <= 0) return false;
+        const px = topX + pivot.x * scale;
+        const py = topY + pivot.y * scale;
+        ctx.save();
+        ctx.translate(px, py + lift);
+        ctx.rotate(angle);
+        ctx.drawImage(img, -pivot.x * scale, -pivot.y * scale, baseWidth, baseHeight);
+        ctx.restore();
+        return true;
+      };
+
+      const legsOk = drawLeg(leftLegSprite, pivots.legL, leftLegAngle, leftLift)
+        && drawLeg(rightLegSprite, pivots.legR, rightLegAngle, rightLift);
+      const bodyOk = bodySprite.complete && bodySprite.naturalWidth > 0;
+
+      if (legsOk && bodyOk) {
+        ctx.drawImage(bodySprite, topX, topY, baseWidth, baseHeight);
+      } else if (fullSprite.complete && fullSprite.naturalWidth > 0) {
+        ctx.drawImage(fullSprite, topX, topY, baseWidth, baseHeight);
+      }
+
+      ctx.restore();
+    }
+
+    function drawMoveMarker() {
+      if (!moveTarget.active || pausedByDialog) return;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255, 197, 223, 0.96)';
+      ctx.lineWidth = 5;
+      circle(moveTarget.x, moveTarget.y, 18 + Math.sin(lastTime * 0.01) * 2.5);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      ctx.lineWidth = 2.5;
+      circle(moveTarget.x, moveTarget.y, 30);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function intersectsObstacle(x, y) {
+      const r = player.radius;
+      return getActiveObstacles().some(o => {
+        if (o.shape === 'ellipse') {
+          const nx = (x - o.x) / (o.rx + r);
+          const ny = (y - o.y) / (o.ry + r);
+          return nx * nx + ny * ny < 1;
+        }
+        return (
+          x + r > o.x && x - r < o.x + o.w &&
+          y + r > o.y && y - r < o.y + o.h
+        );
+      });
+    }
+
+    function landmarkDistance(point) {
+      return Math.hypot(player.x - point.x, player.y - point.y);
+    }
+
+    function movementVector() {
+      let x = 0;
+      let y = 0;
+      if (keys.ArrowLeft || keys.a || keys.A || touchDirections.has('left')) x -= 1;
+      if (keys.ArrowRight || keys.d || keys.D || touchDirections.has('right')) x += 1;
+      if (keys.ArrowUp || keys.w || keys.W || touchDirections.has('up')) y -= 1;
+      if (keys.ArrowDown || keys.s || keys.S || touchDirections.has('down')) y += 1;
+      const length = Math.hypot(x, y) || 1;
+      return { x: x / length, y: y / length, moving: x !== 0 || y !== 0 };
+    }
+
+    function update(dt) {
+      if (player.jumping) {
+        player.jumpVelocity -= 1450 * dt;
+        player.jumpHeight += player.jumpVelocity * dt;
+        if (player.jumpHeight <= 0) {
+          player.jumpHeight = 0;
+          player.jumpVelocity = 0;
+          player.jumping = false;
+        }
+      }
+
+      if (pausedByDialog) {
+        player.walking = false;
+        return;
+      }
+
+      const keyboardMovement = movementVector();
+      let movement = coinToss.active
+        ? { x: 0, y: 0, moving: false }
+        : keyboardMovement;
+
+      if (!coinToss.active && keyboardMovement.moving) {
+        moveTarget.active = false;
+      } else if (!coinToss.active && moveTarget.active) {
+        const dx = moveTarget.x - player.x;
+        const dy = moveTarget.y - player.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 8) {
+          movement = { x: dx / distance, y: dy / distance, moving: true };
+        } else {
+          moveTarget.active = false;
+          movement = { x: 0, y: 0, moving: false };
+        }
+      }
+
+      player.walking = movement.moving;
+      if (movement.moving) {
+        if (Math.abs(movement.x) > Math.abs(movement.y)) {
+          player.facing = movement.x < 0 ? 'left' : 'right';
+        } else {
+          player.facing = movement.y < 0 ? 'up' : 'down';
+        }
+
+        player.phase += dt * 12;
+        const nextX = clamp(player.x + movement.x * player.speed * dt, 205, WORLD.width - 205);
+        const nextY = clamp(player.y + movement.y * player.speed * dt, 105, WORLD.height - 75);
+        if (!intersectsObstacle(nextX, player.y)) player.x = nextX;
+        if (!intersectsObstacle(player.x, nextY)) player.y = nextY;
+      }
+
+      const now = performance.now();
+      if (coinToss.active && now >= coinToss.startTime + coinToss.duration) {
+        coinToss.active = false;
+      }
+      if (now >= warpCooldownUntil) {
+        if (currentWorld === 'town' && Math.hypot(player.x - townWarp.x, player.y - townWarp.y) <= townWarp.radius) {
+          warpToForest();
+          return;
+        }
+        if (currentWorld === 'forest' && Math.hypot(player.x - forestReturnWarp.x, player.y - forestReturnWarp.y) <= forestReturnWarp.radius) {
+          warpToTown();
+          return;
+        }
+      }
+
+      const desiredX = clamp(player.x - cssWidth / 2, 0, WORLD.width - cssWidth);
+      const desiredY = clamp(player.y - cssHeight * 0.64, 0, WORLD.height - cssHeight);
+      camera.x += (desiredX - camera.x) * Math.min(1, dt * 7.5);
+      camera.y += (desiredY - camera.y) * Math.min(1, dt * 7.5);
+
+      updateCaptureBursts(dt);
+      nearby = null;
+      nearbyCritter = null;
+      nearbyForestFirefly = null;
+      nearbyPrompt = null;
+
+      if (currentWorld === 'town') {
+        critters.forEach(critter => {
+          if (critter.captured) return;
+          const pos = getCritterPosition(critter, lastTime);
+          critter.currentX = pos.x;
+          critter.currentY = pos.y;
+        });
+
+        let best = Infinity;
+        critters.forEach(critter => {
+          if (critter.captured) return;
+          const distance = Math.hypot(player.x - critter.currentX, player.y - critter.currentY);
+          if (distance < critter.radius && distance < best) {
+            best = distance;
+            nearbyCritter = critter;
+          }
+        });
+        landmarks.forEach(point => {
+          const distance = landmarkDistance(point);
+          if (distance < point.radius && distance < best) {
+            best = distance;
+            nearby = point;
+            nearbyCritter = null;
+          }
+        });
+
+        if (nearbyCritter) {
+          nearbyPrompt = { x: nearbyCritter.currentX, y: nearbyCritter.currentY - 38, text: 'press E  ♡' };
+        } else if (nearby && nearby.id === 'fountain') {
+          nearbyPrompt = { x: nearby.x, y: nearby.y - 140, text: 'press E' };
+        } else if (nearby) {
+          nearbyPrompt = { x: nearby.x, y: nearby.y - 140, text: 'press E  ♡' };
+        }
+      } else if (currentWorld === 'forest') {
+        let best = Infinity;
+        forestFireflies.forEach(firefly => {
+          if (firefly.captured) return;
+          const pos = getForestFireflyPosition(firefly, lastTime);
+          firefly.currentX = pos.x;
+          firefly.currentY = pos.y;
+          const distance = Math.hypot(player.x - pos.x, player.y - pos.y);
+          if (distance < firefly.radius && distance < best) {
+            best = distance;
+            nearbyForestFirefly = firefly;
+          }
+        });
+
+        if (nearbyForestFirefly) {
+          nearbyPrompt = {
+            x: nearbyForestFirefly.currentX,
+            y: nearbyForestFirefly.currentY - 34,
+            text: 'press E  ♡'
+          };
+        }
+      }
+
+      if (
+        fountainWishPrimed &&
+        currentWorld === 'town' &&
+        Math.hypot(player.x - FOUNTAIN_POINT.x, player.y - FOUNTAIN_POINT.waterY) > FOUNTAIN_POINT.interactionRadius + 35
+      ) {
+        fountainWishPrimed = false;
+      }
+
+      if (lastTime < statusUntil) {
+        placeLabel.textContent = statusMessage;
+      } else if (nearbyForestFirefly) {
+        placeLabel.textContent = '♡ glowing firefly';
+      } else if (currentWorld === 'forest') {
+        placeLabel.textContent = 'rainforest escape';
+      } else if (Math.hypot(player.x - townWarp.x, player.y - townWarp.y) < 220) {
+        placeLabel.textContent = 'cross the bridge to the forest warp';
+      } else if (nearbyCritter) {
+        placeLabel.textContent = `♡ ${nearbyCritter.name}`;
+      } else if (nearby) {
+        placeLabel.textContent = `♡ ${nearby.name}`;
+      } else if (player.y > 1180) {
+        placeLabel.textContent = 'ribbon river';
+      } else if (player.x < 700) {
+        placeLabel.textContent = 'peach tree lane';
+      } else if (player.x > 1450) {
+        placeLabel.textContent = 'starlight row';
+      } else {
+        placeLabel.textContent = 'peach blossom plaza';
+      }
+    }
+
+    function drawMeowSpeechBubble(time) {
+      if (time >= meowBubbleUntil) return;
+
+      const playerScreen = worldToScreen(player.x, player.y);
+      const fade = Math.min(1, Math.max(0, (meowBubbleUntil - time) / 260));
+      const age = Math.max(0, 1800 - (meowBubbleUntil - time));
+      const pop = Math.min(1, age / 150);
+      const bounce = 1 + Math.sin(Math.min(1, age / 220) * Math.PI) * 0.08;
+      const bubbleX = clamp(playerScreen.x + 34, 68, cssWidth - 68);
+      const bubbleY = clamp(playerScreen.y - 133 - player.jumpHeight, 48, cssHeight - 54);
+      const width = 112;
+      const height = 48;
+
+      ctx.save();
+      ctx.globalAlpha = fade;
+      ctx.translate(bubbleX, bubbleY);
+      ctx.scale(pop * bounce, pop * bounce);
+
+      ctx.shadowColor = 'rgba(72, 53, 70, 0.20)';
+      ctx.shadowBlur = 14;
+      ctx.shadowOffsetY = 6;
+      ctx.fillStyle = 'rgba(255, 252, 250, 0.98)';
+      ctx.strokeStyle = '#ffc5df';
+      ctx.lineWidth = 3;
+      roundedRect(-width / 2, -height / 2, width, height, 22);
+      ctx.fill();
+      ctx.stroke();
+
+      // Little speech-bubble tail pointing toward Renee.
+      ctx.shadowColor = 'transparent';
+      ctx.beginPath();
+      ctx.moveTo(-14, height / 2 - 2);
+      ctx.lineTo(-28, height / 2 + 17);
+      ctx.lineTo(2, height / 2 - 1);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(255, 252, 250, 0.98)';
+      ctx.fill();
+      ctx.strokeStyle = '#ffc5df';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-14, height / 2 - 1);
+      ctx.lineTo(-28, height / 2 + 17);
+      ctx.lineTo(2, height / 2 - 1);
+      ctx.stroke();
+
+      ctx.fillStyle = '#554857';
+      ctx.font = "900 17px 'Nunito', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('meow :3', 0, 1);
+      ctx.restore();
+    }
+
+    function draw(time) {
+      updatePacificDayNight();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, cssWidth, cssHeight);
+      drawSkyBackdrop();
+
+      // Fixed soft-angle projection so the town feels more like a cozy,
+      // League-style click-to-move game instead of mouse-look camera panning.
+      ctx.save();
+      ctx.transform(1, projection.skewY, projection.skewX, projection.scaleY, 0, 0);
+      ctx.translate(-camera.x, -camera.y);
+      if (currentWorld === 'forest') {
+        drawForestTestWorld(time);
+      } else {
+        drawTown(time);
+      }
+      drawMoveMarker();
+      drawCat(player.x, player.y, time);
+      if (currentWorld === 'town') drawCoinToss(time);
+      ctx.restore();
+
+      // Follow the real Pacific sunrise/sunset. The maximum tint stays soft
+      // enough to keep the game playable, while the lanterns add warm pools
+      // of light after dark.
+      drawDayNightOverlay(time);
+
+      if (currentWorld === 'forest') {
+        drawRainOverlay(time);
+        const mist = ctx.createLinearGradient(0, 0, 0, cssHeight);
+        mist.addColorStop(0, 'rgba(245, 250, 251, 0.05)');
+        mist.addColorStop(1, 'rgba(150, 185, 171, 0.08)');
+        ctx.fillStyle = mist;
+        ctx.fillRect(0, 0, cssWidth, cssHeight);
+      }
+
+      // Add the collectable critters' nighttime halos after the dark tint so
+      // they remain softly illuminated and easy to spot.
+      if (dayNightState.nightFactor > 0.01) {
+        ctx.save();
+        ctx.transform(1, projection.skewY, projection.skewX, projection.scaleY, 0, 0);
+        ctx.translate(-camera.x, -camera.y);
+        drawNightCritterGlows(time);
+        ctx.restore();
+      }
+
+      // Gentle foreground vignette strengthens the feeling of looking through a camera.
+      const vignette = ctx.createRadialGradient(
+        cssWidth / 2, cssHeight * 0.48, Math.min(cssWidth, cssHeight) * 0.20,
+        cssWidth / 2, cssHeight * 0.48, Math.max(cssWidth, cssHeight) * 0.78
+      );
+      vignette.addColorStop(0, 'rgba(255,255,255,0)');
+      vignette.addColorStop(1, 'rgba(22,44,42,0.12)');
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0, 0, cssWidth, cssHeight);
+
+      drawMeowSpeechBubble(time);
+
+      if (nearbyPrompt && !pausedByDialog) {
+        const screen = worldToScreen(nearbyPrompt.x, nearbyPrompt.y);
+        const sx = screen.x;
+        const sy = screen.y;
+        ctx.save();
+        ctx.font = "900 12px 'Nunito', sans-serif";
+        const promptWidth = Math.max(104, ctx.measureText(nearbyPrompt.text).width + 30);
+        ctx.fillStyle = 'rgba(255, 250, 247, 0.93)';
+        roundedRect(sx - promptWidth / 2, sy - 16, promptWidth, 32, 16);
+        ctx.fill();
+        ctx.fillStyle = '#554857';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(nearbyPrompt.text, sx, sy);
+        ctx.restore();
+      }
+    }
+
+    function frame(time) {
+      const dt = Math.min((time - lastTime) / 1000, 0.035);
+      lastTime = time;
+      if (document.body.classList.contains('show-cat')) {
+        update(dt);
+        draw(time);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function interact() {
+      if (pausedByDialog) {
+        closeDialog();
+        return;
+      }
+      if (nearbyCritter) {
+        const caughtCritter = nearbyCritter;
+        caughtCritter.captured = true;
+        caughtCritterCount += 1;
+        updateCritterCounter();
+        playCuteCatchSound();
+        moveTarget.active = false;
+        const palette = caughtCritter.type === 'bee'
+          ? ['#fff6a8', '#ffd76c', '#fff0cf', '#ffc5df']
+          : ['#ffd9ea', '#fff3a5', '#c9d8ff', '#ffffff'];
+        spawnCaptureBurst(caughtCritter.currentX, caughtCritter.currentY, palette);
+        statusMessage = `caught a ${caughtCritter.name} ✦`;
+        statusUntil = lastTime + 1400;
+        nearbyCritter = null;
+        nearbyPrompt = null;
+
+        // Keep the world endless: after a brief sparkle pause, a new critter
+        // appears somewhere else in town, safely away from the player.
+        window.setTimeout(() => respawnCritter(caughtCritter), 650);
+        return;
+      }
+      if (nearbyForestFirefly) {
+        const caughtFirefly = nearbyForestFirefly;
+        caughtFirefly.captured = true;
+        caughtCritterCount += 1;
+        updateCritterCounter();
+        playCuteCatchSound();
+        moveTarget.active = false;
+        spawnCaptureBurst(caughtFirefly.currentX, caughtFirefly.currentY, [
+          '#fff7a8', '#ffe06f', '#fff5cf', '#ffc5df', '#d9fff0'
+        ]);
+        statusMessage = 'caught a glowing firefly ✦';
+        statusUntil = lastTime + 1400;
+        nearbyForestFirefly = null;
+        nearbyPrompt = null;
+
+        // Fireflies also respawn so rainforest critter catching stays endless.
+        window.setTimeout(() => respawnForestFirefly(caughtFirefly), 650);
+        return;
+      }
+      if (!nearby) return;
+
+      if (nearby.id === 'fountain') {
+        fountainWishPrimed = true;
+        if (dialogHint) {
+          dialogHint.textContent = 'pssst. press T to make ur wish count!';
+          dialogHint.hidden = false;
+        }
+      } else if (dialogHint) {
+        dialogHint.hidden = true;
+      }
+
+      pausedByDialog = true;
+      visited.add(nearby.id);
+      dialog.classList.toggle('theme-cafe', nearby.id === 'cafe');
+      dialogName.textContent = nearby.name;
+      if (nearby.id === 'fountain' && nearby.html) {
+        dialogText.innerHTML = nearby.html;
+      } else if (nearby.id === 'garden') {
+        dialogText.textContent = nearby.text;
+      } else {
+        dialogText.textContent = nearby.text;
+      }
+      dialog.hidden = false;
+    }
+
+    function closeDialog() {
+      pausedByDialog = false;
+      dialog.hidden = true;
+      dialog.classList.remove('theme-cafe');
+      if (dialogHint) dialogHint.hidden = true;
+      canvas.focus({ preventScroll: true });
+    }
+
+    function sayMeow() {
+      if (pausedByDialog) return;
+      playCuteCatPurr();
+      meowBubbleUntil = performance.now() + 1800;
+      if (meowButton) {
+        meowButton.classList.remove('is-meowing');
+        void meowButton.offsetWidth;
+        meowButton.classList.add('is-meowing');
+        window.setTimeout(() => meowButton.classList.remove('is-meowing'), 180);
+      }
+      canvas.focus({ preventScroll: true });
+    }
+
+    function jump() {
+      if (pausedByDialog || player.jumping || coinToss.active) return;
+      playCuteJumpSound();
+      player.jumping = true;
+      player.jumpVelocity = 455;
+      player.jumpHeight = 0;
+    }
+
+
+    // Self-contained cozy background music embedded directly in this HTML file.
+    // Meow Town and Rainforest Escape each have their own seamless loop.
+    const townMusicAudio = new Audio('assets/asset_049.mp3');
+    townMusicAudio.loop = true;
+    townMusicAudio.preload = 'auto';
+
+    const forestMusicAudio = new Audio('assets/asset_050.mp3');
+    forestMusicAudio.loop = true;
+    forestMusicAudio.preload = 'auto';
+
+    // Start both world soundtracks quietly so sound effects remain easy to hear.
+    const DEFAULT_TOWN_MUSIC_VOLUME = 0.18;
+    let townMusicVolume = DEFAULT_TOWN_MUSIC_VOLUME;
+    let townMusicVolumeBeforeMute = DEFAULT_TOWN_MUSIC_VOLUME;
+    let townMusicMuted = false;
+    townMusicAudio.volume = townMusicVolume;
+    forestMusicAudio.volume = townMusicVolume;
+
+    function startTownMusic() {
+      // Use the previous forest soundtrack in Meow Town, and the newly uploaded
+      // soundtrack only in Rainforest Escape. Only one can play at a time.
+      if (townMusicMuted || !isGameActive()) {
+        townMusicAudio.pause();
+        forestMusicAudio.pause();
+        return;
+      }
+
+      const activeMusic = currentWorld === 'forest' ? forestMusicAudio : townMusicAudio;
+      const inactiveMusic = currentWorld === 'forest' ? townMusicAudio : forestMusicAudio;
+      inactiveMusic.pause();
+      activeMusic.muted = false;
+      activeMusic.volume = townMusicVolume;
+      activeMusic.play().catch(() => {
+        // Browsers may wait for another user gesture before allowing audio.
+      });
+    }
+
+    function stopTownMusic() {
+      townMusicAudio.pause();
+      forestMusicAudio.pause();
+    }
+
+    function updateTownSoundButton() {
+      if (!soundButton) return;
+      const effectivelyMuted = townMusicMuted || townMusicVolume <= 0.001;
+      const icon = effectivelyMuted ? '🔇' : (townMusicVolume < 0.45 ? '🔉' : '🔊');
+      soundButton.textContent = icon;
+      soundButton.setAttribute('aria-pressed', effectivelyMuted ? 'true' : 'false');
+      soundButton.setAttribute('aria-label', 'Adjust game music volume');
+      soundButton.title = effectivelyMuted ? 'game music off' : `game music volume ${Math.round(townMusicVolume * 100)}%`;
+      if (volumeSlider) volumeSlider.value = String(Math.round(townMusicVolume * 100));
+    }
+
+    function setTownMusicVolume(value) {
+      townMusicVolume = clamp(Number(value) || 0, 0, 1);
+      if (townMusicVolume > 0.001) townMusicVolumeBeforeMute = townMusicVolume;
+      townMusicAudio.volume = townMusicVolume;
+      forestMusicAudio.volume = townMusicVolume;
+      townMusicMuted = townMusicVolume <= 0.001;
+      townMusicAudio.muted = townMusicMuted;
+      forestMusicAudio.muted = townMusicMuted;
+      updateTownSoundButton();
+
+      if (!townMusicMuted && isGameActive()) startTownMusic();
+      if (townMusicMuted) stopTownMusic();
+    }
+
+    function setTownMusicMuted(muted) {
+      const shouldMute = Boolean(muted);
+
+      if (shouldMute) {
+        if (townMusicVolume > 0.001) townMusicVolumeBeforeMute = townMusicVolume;
+        townMusicMuted = true;
+        townMusicAudio.muted = true;
+        forestMusicAudio.muted = true;
+        stopTownMusic();
+      } else {
+        if (townMusicVolume <= 0.001) {
+          townMusicVolume = townMusicVolumeBeforeMute || DEFAULT_TOWN_MUSIC_VOLUME;
+          townMusicAudio.volume = townMusicVolume;
+          forestMusicAudio.volume = townMusicVolume;
+        }
+        townMusicMuted = false;
+        townMusicAudio.muted = false;
+        forestMusicAudio.muted = false;
+        if (isGameActive()) startTownMusic();
+      }
+
+      updateTownSoundButton();
+    }
+
+    function isGameActive() {
+      return document.body.classList.contains('show-cat');
+    }
+
+    function isEditableTarget(target) {
+      return target instanceof HTMLElement && (
+        target.isContentEditable ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT'
+      );
+    }
+
+    window.addEventListener('keydown', event => {
+      if (!isGameActive() || isEditableTarget(event.target)) return;
+
+      const movementKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd', 'W', 'A', 'S', 'D'];
+      if (movementKeys.includes(event.key)) {
+        event.preventDefault();
+        keys[event.key] = true;
+      }
+
+      if (event.key === 'e' || event.key === 'E') {
+        event.preventDefault();
+        interact();
+      }
+
+      if (event.key === 't' || event.key === 'T') {
+        event.preventDefault();
+        if (!event.repeat) tossCoinIntoFountain();
+      }
+
+      // Spacebar makes Renee jump and prevents the webpage from scrolling.
+      const pressedSpace = event.code === 'Space' || event.key === ' ' || event.key === 'Spacebar';
+      if (pressedSpace) {
+        event.preventDefault();
+        if (!event.repeat) jump();
+      }
+
+      if (event.key === 'Escape' && pausedByDialog) closeDialog();
+    }, { passive: false });
+
+    window.addEventListener('keyup', event => {
+      keys[event.key] = false;
+    });
+
+    document.querySelectorAll('.cat-town-control[data-direction]').forEach(button => {
+      const direction = button.dataset.direction;
+      const press = event => {
+        event.preventDefault();
+        touchDirections.add(direction);
+        button.classList.add('is-pressed');
+        canvas.focus({ preventScroll: true });
+      };
+      const release = event => {
+        event.preventDefault();
+        touchDirections.delete(direction);
+        button.classList.remove('is-pressed');
+      };
+      button.addEventListener('pointerdown', press);
+      button.addEventListener('pointerup', release);
+      button.addEventListener('pointercancel', release);
+      button.addEventListener('pointerleave', release);
+    });
+
+    function commandMove(event) {
+      if (pausedByDialog) return;
+      const point = screenToWorld(event.clientX, event.clientY);
+      moveTarget.x = point.x;
+      moveTarget.y = point.y;
+      moveTarget.active = true;
+      canvas.focus({ preventScroll: true });
+    }
+
+    canvas.addEventListener('contextmenu', event => event.preventDefault());
+    canvas.addEventListener('pointerdown', event => {
+      if (event.button !== 0 && event.button !== 2) return;
+      event.preventDefault();
+      commandMove(event);
+    });
+    canvas.addEventListener('pointermove', event => {
+      if (!(event.buttons & 1) && !(event.buttons & 2)) return;
+      commandMove(event);
+    });
+
+    actionButton.addEventListener('click', interact);
+    if (meowButton) {
+      meowButton.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        sayMeow();
+      });
+    }
+    if (soundButton) {
+      soundButton.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (volumeControl) {
+          const willOpen = !volumeControl.classList.contains('is-open');
+          volumeControl.classList.toggle('is-open', willOpen);
+          soundButton.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        }
+        if (!townMusicMuted) startTownMusic();
+      });
+
+      // Double-click toggles background music mute/unmute and restores
+      // the volume that was set before muting.
+      soundButton.addEventListener('dblclick', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        setTownMusicMuted(!townMusicMuted);
+        if (volumeControl) volumeControl.classList.remove('is-open');
+        soundButton.setAttribute('aria-expanded', 'false');
+        canvas.focus({ preventScroll: true });
+      });
+
+      soundButton.setAttribute('aria-haspopup', 'true');
+      soundButton.setAttribute('aria-expanded', 'false');
+      soundButton.setAttribute('aria-label', 'Adjust game music volume');
+      updateTownSoundButton();
+    }
+
+    if (volumeSlider) {
+      volumeSlider.value = String(Math.round(townMusicVolume * 100));
+      volumeSlider.addEventListener('pointerdown', event => {
+        event.stopPropagation();
+        if (volumeControl) volumeControl.classList.add('is-open');
+      });
+      volumeSlider.addEventListener('click', event => event.stopPropagation());
+      volumeSlider.addEventListener('input', event => {
+        event.stopPropagation();
+        setTownMusicVolume(Number(event.target.value) / 100);
+      });
+      volumeSlider.addEventListener('change', () => canvas.focus({ preventScroll: true }));
+    }
+
+    document.addEventListener('pointerdown', event => {
+      if (!volumeControl || !volumeControl.classList.contains('is-open')) return;
+      if (volumeControl.contains(event.target)) return;
+      volumeControl.classList.remove('is-open');
+      if (soundButton) soundButton.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !volumeControl) return;
+      volumeControl.classList.remove('is-open');
+      if (soundButton) soundButton.setAttribute('aria-expanded', 'false');
+    });
+
+    dialogClose.addEventListener('click', closeDialog);
+
+    const catTab = document.getElementById('cat-tab');
+    if (catTab) {
+      catTab.addEventListener('click', () => {
+        startTownMusic();
+        requestAnimationFrame(() => {
+          resizeCanvas();
+          canvas.focus({ preventScroll: true });
+        });
+      });
+    }
+
+    document.querySelectorAll('.tab-button').forEach(button => {
+      if (button.id === 'cat-tab') return;
+      button.addEventListener('click', stopTownMusic);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopTownMusic();
+      } else if (isGameActive()) {
+        startTownMusic();
+      }
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resizeCanvas).observe(shell);
+    }
+
+    resizeCanvas();
+    window.__meowTownWarpState = function () {
+      return { world: currentWorld, x: player.x, y: player.y };
+    };
+
+    updatePacificDayNight(true);
+    requestAnimationFrame(frame);
+  })();
+</script>
+
+
+<script>
+  /* Pastel sticky-note previews for hike names. */
+  (function () {
+    const tooltip = document.getElementById('hike-sticky-tooltip');
+    const names = Array.from(document.querySelectorAll('.hike-name[data-note]'));
+    if (!tooltip || !names.length) return;
+
+    let activeName = null;
+
+    function placeTooltip(clientX, clientY) {
+      const margin = 12;
+      const gap = 18;
+      const box = tooltip.getBoundingClientRect();
+      let left = clientX + gap;
+      let top = clientY - box.height - gap;
+
+      if (left + box.width > window.innerWidth - margin) {
+        left = clientX - box.width - gap;
+      }
+      if (left < margin) left = margin;
+      if (top < margin) top = clientY + gap;
+      if (top + box.height > window.innerHeight - margin) {
+        top = Math.max(margin, window.innerHeight - box.height - margin);
+      }
+
+      tooltip.style.left = `${Math.round(left)}px`;
+      tooltip.style.top = `${Math.round(top)}px`;
+    }
+
+    function showTooltip(name, clientX, clientY) {
+      if (activeName && activeName !== name) activeName.classList.remove('is-note-open');
+      activeName = name;
+      name.classList.add('is-note-open');
+      const rawNote = name.dataset.note || '';
+      const safeNote = rawNote
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+      tooltip.innerHTML = safeNote
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+      tooltip.classList.toggle('is-large', name.dataset.noteSize === 'large');
+      tooltip.classList.toggle('is-fit', name.dataset.noteSize === 'fit');
+      tooltip.setAttribute('aria-hidden', 'false');
+      tooltip.classList.add('is-visible');
+      requestAnimationFrame(() => placeTooltip(clientX, clientY));
+    }
+
+    function showFromElement(name) {
+      const rect = name.getBoundingClientRect();
+      showTooltip(name, rect.left + Math.min(rect.width, 130), rect.top + rect.height / 2);
+    }
+
+    function hideTooltip(name) {
+      if (name && activeName !== name) return;
+      if (activeName) activeName.classList.remove('is-note-open');
+      activeName = null;
+      tooltip.classList.remove('is-visible');
+      tooltip.classList.remove('is-large');
+      tooltip.setAttribute('aria-hidden', 'true');
+    }
+
+    names.forEach(name => {
+      name.addEventListener('mouseenter', event => showTooltip(name, event.clientX, event.clientY));
+      name.addEventListener('mousemove', event => {
+        if (activeName === name) placeTooltip(event.clientX, event.clientY);
+      });
+      name.addEventListener('mouseleave', () => hideTooltip(name));
+      name.addEventListener('focus', () => showFromElement(name));
+      name.addEventListener('blur', () => hideTooltip(name));
+      name.addEventListener('click', event => {
+        if (!window.matchMedia('(pointer: coarse)').matches) return;
+        event.stopPropagation();
+        if (activeName === name) hideTooltip(name);
+        else showFromElement(name);
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (activeName && !event.target.closest('.hike-name')) hideTooltip(activeName);
+    });
+
+    window.addEventListener('scroll', () => hideTooltip(activeName), { passive: true });
+    window.addEventListener('resize', () => hideTooltip(activeName));
+  })();
+</script>
+
+</body>
+</html>
